@@ -39,19 +39,16 @@ export const useStore: any = defineStore("main", {
       this.token = token;
       get_user(token)
         .then((res) => {
-          console.log(res)
           let users = res.data.data;
           this.updateUserinfo(users);
         })
         .catch((err) => {
-          console.log(err);
         });
     },
     userLogout() {
       this.delAuth();
       this.setNavbar(false);
       logout(localStorage.getItem("token")).then((res) => {
-        console.log(res);
       });
     },
     setNavbar(status: boolean) {
