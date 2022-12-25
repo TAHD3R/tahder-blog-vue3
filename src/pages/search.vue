@@ -8,7 +8,7 @@
         v-if="toLength(Object.keys(store.searchResults).length) == 0"
       />
       <div v-else>
-        <div class="text-3xl font-bold my-4">搜索内容{{ router_info.query["keyword"] }}</div>
+        <div class="text-3xl font-bold my-4">搜索内容</div>
         <div v-for="(item, index) in store.searchResults">
           <n-list-item class="rounded-3xl">
             <div class="flex flex-row">

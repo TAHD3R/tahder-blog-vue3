@@ -30,9 +30,8 @@
     </n-grid-item>
     <n-grid-item span="1 s:2">
       <n-grid
-        cols="0 s:1 m:0"
-        :x-gap="16"
-        class="mb-4"
+        cols="0 xs:1 m:0"
+        class="mb-4 lg:mb-0"
         item-responsive
         responsive="screen"
       >
@@ -70,6 +69,7 @@ const store = useStore();
 const router = useRouter();
 const message = useMessage();
 const searchVal = ref<string | null>(null);
+const containerRef = ref<HTMLElement | undefined>(undefined);
 const loading = ref(false);
 
 function handleSearch() {
