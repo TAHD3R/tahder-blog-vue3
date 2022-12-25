@@ -58,7 +58,7 @@
           show-count
           placeholder="请输入评论内容"
           :autosize="{
-            minRows: 4,
+            minRows: 5,
             maxRows: 5,
           }"
         />
@@ -110,7 +110,7 @@ const doc = reactive({
 const commentValue = ref(null);
 
 onMounted(() => {
-  get_article(router_info.params["id"]).then((res) => {
+  get_article(router_info.query["id"]).then((res) => {
     if (res.data.code != "200") {
       router.push({ name: "notfound" });
     } else {
@@ -137,7 +137,7 @@ onMounted(() => {
       });
     }
   });
-  get_comments(router_info.params["id"]).then((res) => {
+  get_comments(router_info.query["id"]).then((res) => {
     store.comments = res.data.data;
   });
 });
@@ -146,9 +146,10 @@ function handleComment() {
   if (localStorage.getItem("users")) {
     let getLocalData: any = localStorage.getItem("users");
     let user_id: string = JSON.parse(getLocalData).user_id;
+
     let data = {
       user_id: user_id,
-      article_id: router_info.params["id"],
+      article_id: router_info.query["id"],
       comment: commentValue.value,
       parent_id: null,
     };
@@ -163,7 +164,7 @@ function handleComment() {
           nextTick(() => {
             message.success(res.data.msg);
             commentValue.value = null;
-            get_comments(router_info.params["id"]).then((res) => {
+            get_comments(router_info.query["id"]).then((res) => {
               store.comments = res.data.data;
             });
             get_articles().then((res) => {

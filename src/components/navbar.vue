@@ -75,26 +75,9 @@
           </n-grid>
         </div>
       </n-grid-item>
-      <n-grid-item span="0 l:1" />
-      <n-grid-item span="0 m:2">
-        <div class="nav-common">
-          <n-input
-            v-model:value="searchValue"
-            round
-            type="text"
-            placeholder="搜索内容"
-            maxlength="12"
-            clearable
-          >
-            <template #suffix>
-              <n-button circle size="tiny" secondary>
-                <template #icon>
-                  <n-icon :component="SearchIcon" />
-                </template>
-              </n-button>
-            </template>
-          </n-input>
-        </div>
+      <n-grid-item span="0 m:1 l:2" />
+      <n-grid-item span="0 m:1">
+          <searchbar class="flex justify-center items-center h-16 w-full"/>
       </n-grid-item>
       <n-grid-item span="1">
         <div v-if="store.isLogin" class="nav-common">
@@ -147,15 +130,17 @@ import {
   PlanetOutline as LabIcon,
   Search as SearchIcon,
 } from "@vicons/ionicons5";
-import router from "../router";
+import { search } from "../api/posts";
 // 登录组件
 import login from "~/components/login.vue";
+import searchbar from "~/components/searchbar.vue";
 // Pinia 状态管理
 import { useStore } from "../store";
+import router from "../router";
 
 const store = useStore();
 const message = useMessage();
-const searchValue = ref<string | null>(null);
+const searchVal = ref<string | null>(null);
 
 const options = [
   {
@@ -188,6 +173,16 @@ function handleSelect(key: string | number) {
     store.userLogout();
     message.success("已退出登录");
   }
+}
+
+function handleSearch() {
+  let data = {
+    query: searchVal.value,
+  };
+  search(data).then((res) => {
+    store.searchResults = res.data.data;
+    router.push({ name: "search" });
+  });
 }
 </script>
 

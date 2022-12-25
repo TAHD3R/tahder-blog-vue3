@@ -13,7 +13,7 @@
                   <router-link
                     :to="{
                       name: 'post',
-                      params: { id: item['id'] },
+                      query: { id: item['id'] },
                     }"
                     ><div class="font-bold">
                       {{ item["article_title"] }}

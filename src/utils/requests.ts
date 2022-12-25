@@ -107,11 +107,11 @@ request.interceptors.response.use(
     } else {
       // 超时处理
       if (JSON.stringify(error).includes("timeout")) {
-        message.error(error.data.message);
+        message.error(error.message);
       }
       error.message = "连接服务器失败";
     }
-    message.error(error.data.message);
+    message.error(error.message);
     return Promise.reject(error);
   }
 );

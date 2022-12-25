@@ -79,7 +79,7 @@
                   <router-link
                     :to="{
                       name: 'post',
-                      params: { id: item['id'] },
+                      query: { id: item['id'] },
                     }"
                     >{{ item["title"] }}
                   </router-link>

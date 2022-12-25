@@ -1,30 +1,27 @@
 <template>
   <n-card>
-    <n-list hoverable>
+    <n-list show-divider hoverable class="my-4">
       <n-empty
         size="huge"
-        description="暂时还没有文章呢.."
-        v-if="toLength(Object.keys(store.articles).length) == 0"
+        class="my-16"
+        description="没有找到搜索内容.."
+        v-if="toLength(Object.keys(store.searchResults).length) == 0"
       />
       <div v-else>
-        <div v-for="(item, index) in store.articles">
+        <div class="text-3xl font-bold my-4">搜索内容{{ router_info.query["keyword"] }}</div>
+        <div v-for="(item, index) in store.searchResults">
           <n-list-item class="rounded-3xl">
             <div class="flex flex-row">
               <div class="flex flex-col">
                 <div class="text-xl font-bold mt-4 sm:mt-8">
-                  <n-ellipsis :line-clamp="1" :tooltip="false">
-                    <router-link
-                      :to="{
-                        name: 'post',
-                        query: { id: item['id'] },
-                      }"
-                    >
-                      {{ item["title"] }}
-                    </router-link>
-                  </n-ellipsis>
-                </div>
-                <div>
-                  <n-tag type="success" size="small">
+                  <router-link
+                    :to="{
+                      name: 'post',
+                      query: { id: item['id'] },
+                    }"
+                    >{{ item["title"] }}
+                  </router-link>
+                  <n-tag type="success" size="small" class="ml-2">
                     {{ item["category"] }}
                   </n-tag>
                 </div>
@@ -50,11 +47,11 @@
                     <n-icon :component="CommentIcon" class="mr-2" />
                     评论数0
                   </div>
-                  <div class="hidden xl:inline font-normal">
+                  <div class="hidden xl:inline">
                     <n-time
-                      :to="Date.now()"
-                      :time="item['created_time'] * 1000"
-                      type="relative"
+                      :time="item['created_time']"
+                      format="yyyy年MM月dd日"
+                      unix
                     />
                   </div>
                 </n-space>
@@ -65,56 +62,24 @@
       </div>
     </n-list>
   </n-card>
-  <pagination />
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, watch, nextTick } from "vue";
-import { toLength } from "lodash";
-import { get_articles } from "../api/posts";
+import { ref, onMounted, reactive } from "vue";
+import { useRouter } from "vue-router";
+import { get_categories } from "../api/tags";
 import {
   EyeOutline as ViewsIcon,
   ChatbubbleEllipsesOutline as CommentIcon,
 } from "@vicons/ionicons5";
+import { get_category_articles } from "../api/tags";
+import { toLength } from "lodash";
 // Pinia 状态管理
 import { useStore } from "../store";
-import pagination from "~/components/pagination.vue";
 
-const props = defineProps(["page", "category"]);
 const store = useStore();
+const router = useRouter();
+const router_info = reactive({ ...router.currentRoute.value });
 
-watch(
-  () => props.page,
-  (newVal, oldVal) => {
-    let data = {
-      page: newVal,
-    };
 
-    get_articles(data).then((res) => {
-      store.articles = res.data.data;
-    });
-
-    document.getElementById("anchor-articles").scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-      inline: "nearest",
-    });
-  }
-);
 </script>
-
-<style scoped>
-.article-img {
-  width: 480px;
-  object-fit: cover;
-}
-
-.n-a {
-  --tw-text-opacity: 1;
-  color: rgb(244 244 245 / var(--tw-text-opacity));
-}
-
-.n-list {
-  border-radius: 16px;
-}
-</style>

@@ -8,7 +8,7 @@
       responsive="screen"
     >
       <n-grid-item span="2 s:2 m:3">
-        <router-link :to="{ name: 'post', params: { id: store.banner[0].id } }">
+        <router-link :to="{ name: 'post', query: { id: store.banner[0].id } }">
           <div
             class="relative bg-center transition duration-500 ease-out hover:brightness-125"
           >
@@ -76,7 +76,7 @@
         >
           <n-grid-item span="1">
             <router-link
-              :to="{ name: 'post', params: { id: store.banner[1].id } }"
+              :to="{ name: 'post', query: { id: store.banner[1].id } }"
             >
               <div
                 class="relative transition duration-500 ease-out hover:brightness-125"
@@ -104,7 +104,7 @@
           </n-grid-item>
           <n-grid-item span="1" id="anchor-articles">
             <router-link
-              :to="{ name: 'post', params: { id: store.banner[2].id } }"
+              :to="{ name: 'post', query: { id: store.banner[2].id } }"
             >
               <div
                 class="relative transition duration-500 ease-out hover:brightness-125"

@@ -24,7 +24,7 @@ const routes: Array<RouteRecordRaw> = [
     },
   },
   {
-    path: "/post/:id(\\d+)+",
+    path: "/post",
     name: "post",
     component: () => import("~/pages/post.vue"),
     meta: {
@@ -56,6 +56,15 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       title: "分类/标签",
     },
+  },
+  {
+    path: "/search",
+    name: "search",
+    component: () => import("~/pages/search.vue"),
+    meta: {
+      title: "搜索结果",
+    },
+    props: true,
   },
   {
     path: "/lab",

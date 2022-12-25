@@ -24,6 +24,7 @@ export const useStore: any = defineStore("main", {
       topics: [],
       banner: [],
       ads: [],
+      searchResults:[],
       page:1,
       pages:1,
       hasNextPage: false,

@@ -29,6 +29,17 @@
       </n-card>
     </n-grid-item>
     <n-grid-item span="1 s:2">
+      <n-grid
+        cols="0 s:1 m:0"
+        :x-gap="16"
+        class="mb-4"
+        item-responsive
+        responsive="screen"
+      >
+        <n-grid-item span="1 m:0">
+          <searchbar />
+        </n-grid-item>
+      </n-grid>
       <articles :page="store.page" />
     </n-grid-item>
     <n-grid-item span="1 m:1">
@@ -41,15 +52,37 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+import { useMessage } from "naive-ui";
 // Pinia 状态管理
 import { useStore } from "../store";
-
+import { useRouter } from "vue-router";
+import { Search as SearchIcon } from "@vicons/ionicons5";
 import banner from "~/components/banner.vue";
 import hot from "~/components/hot.vue";
 import about from "~/components/about.vue";
 import copyrights from "~/components/copyrights.vue";
 import articles from "~/components/articles.vue";
+import searchbar from "~/components/searchbar.vue";
+
+import { search } from "../api/posts";
 
 const store = useStore();
+const router = useRouter();
+const message = useMessage();
+const searchVal = ref<string | null>(null);
+const loading = ref(false);
 
+function handleSearch() {
+  loading.value = true;
+
+  let data = {
+    query: searchVal.value,
+  };
+
+  search(data).then((res) => {
+    store.searchResults = res.data.data;
+    loading.value = false;
+    router.push({ name: "search" });
+  });
+}
 </script>

@@ -58,3 +58,12 @@ export const make_comment = (data: any) => {
     data: data,
   });
 };
+
+export const search = (data: any) => {
+  return request({
+    method: "POST",
+    url: "/search",
+    headers: { "Content-Type": "application/json" },
+    data: data,
+  });
+};
