@@ -1,10 +1,16 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
-import { createDiscreteApi } from "naive-ui";
+import { createDiscreteApi, ConfigProviderProps, darkTheme } from "naive-ui";
 // Pinia 状态管理
 import { useStore } from "../store";
 import pinia from "../store";
 
-const { message, loadingBar } = createDiscreteApi(["message", "loadingBar"]);
+const configProviderPropsRef = computed<ConfigProviderProps>(() => ({
+  theme: darkTheme,
+}));
+const { message, loadingBar } = createDiscreteApi(["message", "loadingBar"], {
+  configProviderProps: configProviderPropsRef,
+});
+
 const store = useStore(pinia);
 
 const routes: Array<RouteRecordRaw> = [
