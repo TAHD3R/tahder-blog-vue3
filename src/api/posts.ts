@@ -1,10 +1,11 @@
 import request from "../utils/requests";
 
-export const get_articles = () => {
+export const get_articles = (data: any = null) => {
   return request({
-    method: "GET",
+    method: "POST",
     url: "/articles",
     headers: { "Content-Type": "application/json" },
+    data: data,
   });
 };
 

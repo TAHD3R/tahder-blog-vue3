@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useMessage } from "naive-ui";
+import { createDiscreteApi } from "naive-ui";
 import axiosRetry from "axios-retry";
 // Pinia 状态管理
 import { useStore } from "../store";
@@ -7,7 +7,7 @@ import pinia from "../store";
 const store = useStore(pinia);
 
 // 提示模块
-const message = useMessage();
+const { message } = createDiscreteApi(["message"]);
 // 封装Axios请求
 const request = axios.create({
   baseURL: "/api",

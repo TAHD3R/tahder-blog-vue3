@@ -22,7 +22,7 @@
             />
             <n-space
               vertical
-              class="absolute bottom-0 left-0 w-full sm:w-3/5 sm:w-2/3"
+              class="absolute bottom-0 left-0 w-full sm:w-3/5"
             >
               <div class="font-bold text-lg mx-4 sm:mx-16 sm:text-3xl">
                 <div class="font-bold">
@@ -87,7 +87,7 @@
                   class="w-full h-[15.5rem] rounded-2xl bg-center object-cover"
                 />
                 <div
-                  class="absolute bottom-0 left-0 w-full h-full sm:h-2/5 md:h-0 backdrop-blur-lg rounded-b-2xl rounded-t-2xl md:rounded-t-none"
+                  class="absolute bottom-0 left-0 w-full h-full sm:h-2/5 lg:h-0 backdrop-blur-lg rounded-b-2xl rounded-t-2xl sm:rounded-t-none"
                 />
                 <n-space vertical class="absolute bottom-0 left-0 w-full">
                   <div class="font-bold text-lg mx-4 sm:mx-8 sm:text-xl">
@@ -102,7 +102,7 @@
               </div>
             </router-link>
           </n-grid-item>
-          <n-grid-item span="1">
+          <n-grid-item span="1" id="anchor-articles">
             <router-link
               :to="{ name: 'post', params: { id: store.banner[2].id } }"
             >
@@ -114,9 +114,8 @@
                   alt=""
                   class="w-full h-[15.5rem] rounded-2xl bg-center object-cover"
                 />
-
                 <div
-                  class="absolute bottom-0 left-0 w-full h-full sm:h-2/5 md:h-0 backdrop-blur-lg rounded-b-2xl rounded-t-2xl md:rounded-t-none"
+                  class="absolute bottom-0 left-0 w-full h-full sm:h-2/5 lg:h-0 backdrop-blur-lg rounded-b-2xl rounded-t-2xl sm:rounded-t-none"
                 />
                 <n-space vertical class="absolute bottom-0 left-0 w-full">
                   <div class="font-bold text-lg mx-4 sm:mx-8 sm:text-xl">

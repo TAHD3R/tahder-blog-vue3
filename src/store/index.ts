@@ -11,7 +11,6 @@ export const useStore: any = defineStore("main", {
     return {
       showLogin: false,
       isLogin: false,
-      showCarousel: true,
       hasHotArticles: false,
       userinfo: localStorage.getItem("users")
         ? JSON.parse(localStorage.getItem("users") || "{}")
@@ -25,6 +24,9 @@ export const useStore: any = defineStore("main", {
       topics: [],
       banner: [],
       ads: [],
+      page:1,
+      pages:1,
+      hasNextPage: false,
       editorTheme: "dark",
       token: localStorage.getItem("token") || undefined,
     };

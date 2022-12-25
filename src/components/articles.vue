@@ -45,11 +45,11 @@
                     <n-icon :component="CommentIcon" class="mr-2" />
                     评论数0
                   </div>
-                  <div class="hidden xl:inline">
+                  <div class="hidden xl:inline font-normal">
                     <n-time
-                      :time="item['created_time']"
-                      format="yyyy年MM月dd日"
-                      unix
+                      :to="Date.now()"
+                      :time="item['created_time'] * 1000"
+                      type="relative"
                     />
                   </div>
                 </n-space>
@@ -63,17 +63,38 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch, nextTick } from "vue";
+import { toLength } from "lodash";
+import { get_articles } from "../api/posts";
 import {
   EyeOutline as ViewsIcon,
   ChatbubbleEllipsesOutline as CommentIcon,
 } from "@vicons/ionicons5";
 // Pinia 状态管理
 import { useStore } from "../store";
-import { toLength } from "lodash";
 
-const page = ref(2);
+const props = defineProps(["page"]);
 const store = useStore();
+const articles = ref();
+
+watch(
+  () => props.page,
+  (newVal, oldVal) => {
+    let data = {
+      page: newVal,
+    };
+    document
+      .getElementById("anchor-articles")
+      .scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+        inline: "nearest",
+      });
+    get_articles(data).then((res) => {
+      store.articles = res.data.data;
+    });
+  }
+);
 </script>
 
 <style scoped>

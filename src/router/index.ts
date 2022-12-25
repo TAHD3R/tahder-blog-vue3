@@ -1,8 +1,10 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
+import { createDiscreteApi } from "naive-ui";
 // Pinia 状态管理
 import { useStore } from "../store";
 import pinia from "../store";
 
+const { message, loadingBar } = createDiscreteApi(["message", "loadingBar"]);
 const store = useStore(pinia);
 
 const routes: Array<RouteRecordRaw> = [
@@ -89,6 +91,8 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
+  // 全局进度条
+  loadingBar.start();
   // 登录判断
   if (!localStorage.hasOwnProperty("users")) {
     store.setNavbar(false);
@@ -98,12 +102,14 @@ router.beforeEach(async (to, from, next) => {
     // 发帖权限
     if (to.name == "editor") {
       if (store.userinfo.engima != "zcjhxgfzglf") {
+        message.error("普通用户组无发帖权限");
         router.push({ name: "unauthorized" });
       }
     }
   }
   if (to.meta.requireAuth) {
     if (!localStorage.hasOwnProperty("users")) {
+      message.warning("请先登录！");
       router.push({ name: "unauthorized" });
     }
   }
@@ -116,11 +122,13 @@ router.beforeEach(async (to, from, next) => {
     let title = (to.meta.title ? to.meta.title : "") + " - 塔格德";
     document.title = title;
   }
-
   next();
 });
 
 // 全局后置守卫
-router.afterEach((to, from) => {});
+router.afterEach((to, from) => {
+  // 全局进度条
+  loadingBar.finish();
+});
 
 export default router;

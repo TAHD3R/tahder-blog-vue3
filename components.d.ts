@@ -45,6 +45,7 @@ declare module '@vue/runtime-core' {
     NNotificationProvider: typeof import('naive-ui')['NNotificationProvider']
     Notfound: typeof import('./src/components/redirect/notfound.vue')['default']
     NP: typeof import('naive-ui')['NP']
+    NPagination: typeof import('naive-ui')['NPagination']
     NResult: typeof import('naive-ui')['NResult']
     NSelect: typeof import('naive-ui')['NSelect']
     NSpace: typeof import('naive-ui')['NSpace']

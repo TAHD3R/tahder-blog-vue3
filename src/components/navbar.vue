@@ -39,7 +39,7 @@
                     <n-icon :component="BookIcon" size="24" />
                   </template>
                   <div class="hidden md:inline font-semibold ml-2">
-                    分类/标签
+                    文章仓库
                   </div>
                 </n-button></router-link
               >

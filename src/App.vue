@@ -35,8 +35,10 @@ onMounted(() => {
     .then((res) => {
       store.banner = res.data.data;
       get_articles().then((res) => {
-        store.articles = res.data.data;
-      });
+      store.articles = res.data.data;
+      store.pages = res.data.extra.pages
+      store.hasNextPage = res.data.extra.has_next
+    });
       get_articles_hot().then((res) => {
         store.articles_hot = res.data.data;
         store.hasHotArticles = true;

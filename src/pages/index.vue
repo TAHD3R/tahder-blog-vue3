@@ -1,12 +1,12 @@
 <template>
-        <n-alert
+  <!-- <n-alert
         title="温馨提示"
         type="info"
         class="flex sm:hidden mb-4 rounded-2xl"
         closable
       >
         移动端响应式布局优化中, 推荐前往PC端享受更完整体验。
-      </n-alert>
+      </n-alert> -->
   <banner />
   <n-grid
     cols="1 m:4"
@@ -29,8 +29,17 @@
       </n-card>
     </n-grid-item>
     <n-grid-item span="1 s:2">
-
-      <articles />
+      <articles :page="page" />
+      <n-card class="mt-4" v-if="store.pages > 1">
+        <n-space justify="center">
+            <n-pagination
+              v-model:page="page"
+              :page-count="store.pages"
+              size="large"
+              :page-slot="7"
+            />
+        </n-space>
+      </n-card>
     </n-grid-item>
     <n-grid-item span="1 m:1">
       <hot />
@@ -42,27 +51,15 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+// Pinia 状态管理
+import { useStore } from "../store";
 
 import banner from "~/components/banner.vue";
 import hot from "~/components/hot.vue";
 import about from "~/components/about.vue";
 import copyrights from "~/components/copyrights.vue";
 import articles from "~/components/articles.vue";
-</script>
 
-<style scoped>
-.light-green {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 200px;
-  background-color: rgba(0, 128, 0, 0.12);
-}
-.green {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 200px;
-  background-color: rgba(0, 128, 0, 0.24);
-}
-</style>
+const store = useStore();
+const page = ref(1);
+</script>
