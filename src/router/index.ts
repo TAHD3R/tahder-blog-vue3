@@ -34,9 +34,9 @@ const routes: Array<RouteRecordRaw> = [
     },
   },
   {
-    path: "/me",
-    name: "me",
-    component: () => import("~/pages/me.vue"),
+    path: "/space",
+    name: "space",
+    component: () => import("~/pages/space.vue"),
     meta: {
       title: "个人空间",
       requireAuth: true,

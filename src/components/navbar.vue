@@ -162,7 +162,7 @@ const options = [
         RouterLink,
         {
           to: {
-            name: "me",
+            name: "space",
           },
         },
         { default: () => "个人空间" }
