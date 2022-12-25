@@ -1,0 +1,17 @@
+import { createApp } from "vue";
+import App from "./App.vue";
+import "./index.css";
+import router from "./router";
+import pinia from "./store";
+import "normalize.css/normalize.css";
+
+import VueVditor from 'vue-vditor';
+import 'vditor/dist/index.css';
+
+const app = createApp(App);
+
+app.use(pinia);
+app.use(router);
+app.use(VueVditor);
+
+app.mount("#app");
