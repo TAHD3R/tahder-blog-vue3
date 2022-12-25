@@ -1,4 +1,5 @@
 import axios from "axios";
+import { computed } from "vue";
 import { createDiscreteApi, ConfigProviderProps, darkTheme } from "naive-ui";
 import axiosRetry from "axios-retry";
 // Pinia 状态管理
@@ -37,6 +38,7 @@ request.interceptors.request.use(
       config.headers.Authorization =
         "Bearer" + " " + localStorage.getItem("token");
     }
+    store.isSkeleton = false;
     return config;
   },
   (error) => {

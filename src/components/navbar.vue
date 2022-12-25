@@ -99,11 +99,13 @@
       <n-grid-item span="1">
         <div v-if="store.isLogin" class="nav-common">
           <div class="flex items-center justify-center">
-            <img
-              :src="store.userinfo.avatar"
-              alt=""
-              class="w-8 h-8 rounded-md"
-            />
+            <n-badge :value="1" show-zero class="w-8 h-8">
+              <img
+                :src="store.userinfo.avatar"
+                alt=""
+                class="w-8 h-8 rounded-md"
+              />
+            </n-badge>
             <n-dropdown
               :options="options"
               :show-arrow="true"

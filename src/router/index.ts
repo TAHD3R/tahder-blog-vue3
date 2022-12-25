@@ -1,3 +1,4 @@
+import { computed } from "vue";
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import { createDiscreteApi, ConfigProviderProps, darkTheme } from "naive-ui";
 // Pinia 状态管理

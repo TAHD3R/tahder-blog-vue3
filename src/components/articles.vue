@@ -17,7 +17,8 @@
                       name: 'post',
                       params: { id: item['id'] },
                     }"
-                    >{{ item["title"] }}
+                  >
+                    {{ item["title"] }}
                   </router-link>
                   <n-tag type="success" size="small" class="ml-2">
                     {{ item["category"] }}
@@ -60,6 +61,7 @@
       </div>
     </n-list>
   </n-card>
+  <pagination />
 </template>
 
 <script setup lang="ts">
@@ -72,10 +74,10 @@ import {
 } from "@vicons/ionicons5";
 // Pinia 状态管理
 import { useStore } from "../store";
+import pagination from "~/components/pagination.vue";
 
-const props = defineProps(["page"]);
+const props = defineProps(["page", "category"]);
 const store = useStore();
-const articles = ref();
 
 watch(
   () => props.page,
@@ -83,15 +85,15 @@ watch(
     let data = {
       page: newVal,
     };
-    document
-      .getElementById("anchor-articles")
-      .scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-        inline: "nearest",
-      });
+
     get_articles(data).then((res) => {
       store.articles = res.data.data;
+    });
+
+    document.getElementById("anchor-articles").scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+      inline: "nearest",
     });
   }
 );

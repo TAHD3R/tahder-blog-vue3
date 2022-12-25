@@ -54,7 +54,7 @@
     </n-space>
   </n-card>
 
-  <n-card class="my-4" title="我发表的文章">
+  <n-card class="my-4" title="我的文章">
     <template #header-extra>
       <n-button round @click="router.push('/editor')">
         <template #icon>
@@ -108,20 +108,18 @@
     v-model:show="active"
     preset="card"
     title="编辑个人资料"
-    style="width: 600px"
-    :bordered="false"
+    style="width: 300px"
   >
     <n-form
       ref="formRef"
       :model="formValue"
       label-placement="left"
-      label-width="80"
       label-align="left"
     >
-      <n-form-item label="昵称" path="nickname">
+      <n-form-item  path="nickname">
         <n-input v-model:value="formValue.nickname" placeholder="输入昵称" />
       </n-form-item>
-      <n-form-item label="自我介绍" path="description">
+      <n-form-item path="description">
         <n-input
           v-model:value="formValue.description"
           placeholder="输入自我介绍"
@@ -129,8 +127,8 @@
       </n-form-item>
     </n-form>
     <template #footer>
-      <n-space justify="end">
-        <n-button strong @click="handleClick">提交修改</n-button>
+      <n-space justify="center">
+        <n-button strong @click="handleClick" class="w-full">提交修改</n-button>
       </n-space>
     </template>
   </n-modal>

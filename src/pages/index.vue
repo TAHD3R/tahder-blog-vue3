@@ -29,17 +29,7 @@
       </n-card>
     </n-grid-item>
     <n-grid-item span="1 s:2">
-      <articles :page="page" />
-      <n-card class="mt-4" v-if="store.pages > 1">
-        <n-space justify="center">
-            <n-pagination
-              v-model:page="page"
-              :page-count="store.pages"
-              size="large"
-              :page-slot="7"
-            />
-        </n-space>
-      </n-card>
+      <articles :page="store.page" />
     </n-grid-item>
     <n-grid-item span="1 m:1">
       <hot />
@@ -61,5 +51,5 @@ import copyrights from "~/components/copyrights.vue";
 import articles from "~/components/articles.vue";
 
 const store = useStore();
-const page = ref(1);
+
 </script>

@@ -28,6 +28,7 @@ export const useStore: any = defineStore("main", {
       pages:1,
       hasNextPage: false,
       editorTheme: "dark",
+      isSkeleton : true,
       token: localStorage.getItem("token") || undefined,
     };
   },
