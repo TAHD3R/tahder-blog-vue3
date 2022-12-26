@@ -1,18 +1,21 @@
 <template>
   <n-divider />
   <n-thing
-    content-indented
     v-for="(item, index) in store.comments"
+    content-indented
     class="mb-8"
   >
     <template #avatar>
-      <n-avatar size="small" :src="item['avatar']" />
+      <n-avatar
+        size="small"
+        :src="item['avatar']"
+      />
     </template>
     <template #header>
       {{ item["nickname"] }}
       <n-tag
-        size="small"
         v-if="item['user_id'] == store.article['user_id']"
+        size="small"
         class="ml-2 font-bold"
       >
         作者
@@ -28,26 +31,41 @@
     {{ item["comment"] }}
     <template #action>
       <n-space>
-        <n-button text size="small">
-          <template #icon> </template>
+        <n-button
+          text
+          size="small"
+        >
+          <template #icon />
           回复
         </n-button>
       </n-space>
     </template>
-    <n-thing class="mx-8" content-indented v-if="false">
+    <n-thing
+      v-if="false"
+      class="mx-8"
+      content-indented
+    >
       <template #avatar>
-        <n-avatar size="small">露露</n-avatar>
+        <n-avatar size="small">
+          露露
+        </n-avatar>
       </template>
-      <template #header> 宇宙最美最牛究极螺旋升天暗影美女 </template>
+      <template #header>
+        宇宙最美最牛究极螺旋升天暗影美女
+      </template>
       <template #description>
-        <n-time :time="0" :to="60000000" type="relative" />
+        <n-time
+          :time="0"
+          :to="60000000"
+          type="relative"
+        />
       </template>
       <n-blockquote> 这篇文章写的很好！ </n-blockquote>
       嘿嘿嘿，夹子你也太棒了吧！
       <template #action>
         <n-space>
           <n-button size="small">
-            <template #icon> </template>
+            <template #icon />
             回复
           </n-button>
         </n-space>

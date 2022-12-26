@@ -2,48 +2,55 @@
   <n-card embedded>
     <div class="flex flex-row justify-between mb-4">
       <div class="flex flex-col">
-        <div class="text-3xl mb-2 font-bold">在这里发挥想象吧！</div>
+        <div class="text-3xl mb-2 font-bold">
+          在这里发挥想象吧！
+        </div>
       </div>
     </div>
-    <n-grid x-gap="12" :cols="4" item-responsive class="mb-3">
+    <n-grid
+      x-gap="12"
+      :cols="4"
+      item-responsive
+      class="mb-3"
+    >
       <n-gi span="2">
         <n-select
+          v-if="categoryLoaded"
           v-model:value="categoryValue"
           :options="options"
           class="mb-3"
           label-field="name"
           value-field="id"
-          v-if="categoryLoaded"
           placeholder="选择文章分类"
         />
-        <n-input
-          v-model:value="descValue"
-          type="text"
-          placeholder="输入文章简介"
-          maxlength="80"
-          show-count
-          clearable
-        />
       </n-gi>
+
       <n-gi span="2">
         <n-input
           v-model:value="inputValue"
           type="text"
           placeholder="输入文章题目"
-          maxlength="30"
           show-count
           clearable
         />
-        <n-space class="mt-3 justify-center">
-          <n-p class="self-center">文章标签：</n-p>
-          <n-dynamic-tags v-model:value="tags" :max="3" />
-        </n-space>
+      </n-gi>
+      <n-gi span="4">
+        <n-input
+          v-model:value="descValue"
+          type="text"
+          placeholder="输入文章简介"
+          show-count
+          clearable
+        />
       </n-gi>
     </n-grid>
     <div id="vditor" />
     <template #action>
       <n-space justify="end">
-        <n-button size="large" @click="publishArticle">
+        <n-button
+          size="large"
+          @click="publishArticle"
+        >
           <template #icon>
             <n-icon><ArchiveIcon /></n-icon>
           </template>
@@ -70,7 +77,7 @@ import { useStore } from "../store";
 const vditor = ref<Vditor | null>(null);
 const router = useRouter();
 const store = useStore();
-const message = useMessage()
+const message = useMessage();
 const inputValue = ref(null);
 const descValue = ref(null);
 const tags = ref([]);
@@ -155,7 +162,7 @@ function publishArticle() {
     summary: descValue.value,
     category: categoryValue.value,
   };
-
+  console.log(categoryValue.value);
   publish(data).then((res) => {
     if (res.data.code != 200) {
       nextTick(() => {
@@ -167,7 +174,7 @@ function publishArticle() {
         get_articles().then((res) => {
           store.articles = res.data.data;
         });
-        router.push({ name: "post", params: { id: res.data.data.id } });
+        router.push({ name: "post", query: { id: res.data.data.id } });
       });
     }
   });
@@ -177,5 +184,4 @@ let vueEditor: Vditor | null = null;
 function handleAfter(editor: any) {
   vueEditor = editor;
 }
-
 </script>

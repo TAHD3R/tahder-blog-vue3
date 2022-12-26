@@ -1,6 +1,8 @@
 <template>
   <div class="flex flex-col mt-4 items-center sm:items-start">
-    <div class="font-bold mb-2 text-sm">Copyright © 2022-2023 塔格德</div>
+    <div class="font-bold mb-2 text-sm">
+      Copyright © 2022-2023 塔格德
+    </div>
     <div>
       <n-button
         text

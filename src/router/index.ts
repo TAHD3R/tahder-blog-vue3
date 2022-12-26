@@ -132,10 +132,10 @@ router.beforeEach(async (to, from, next) => {
 
   // 设置页面标题
   if (to.meta.title === "首页") {
-    let title = "塔格德 - 专注技术, 分享生活";
+    const title = "塔格德 - 专注技术, 分享生活";
     document.title = title;
   } else {
-    let title = (to.meta.title ? to.meta.title : "") + " - 塔格德";
+    const title = (to.meta.title ? to.meta.title : "") + " - 塔格德";
     document.title = title;
   }
   next();

@@ -1,10 +1,13 @@
 <template>
-  <n-card embedded content-style="margin-top:24px;">
+  <n-card
+    embedded
+    content-style="margin-top:24px;"
+  >
     <template #cover>
       <img
         src="https://images.unsplash.com/photo-1669669957371-038884599ba1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1634&q=80"
         class="h-80 object-cover"
-      />
+      >
     </template>
 
     <n-space>
@@ -12,7 +15,7 @@
         :src="store.userinfo['avatar']"
         alt=""
         class="w-16 h-16 sm:w-24 sm:h-24 rounded-xl"
-      />
+      >
       <n-space vertical>
         <n-space>
           <n-space justify="end">
@@ -20,7 +23,9 @@
               {{ store.userinfo["nickname"] }}
             </div>
           </n-space>
-          <n-button @click="active = true"> 编辑个人资料 </n-button>
+          <n-button @click="active = true">
+            编辑个人资料
+          </n-button>
         </n-space>
 
         <n-space vertical>
@@ -54,21 +59,30 @@
     </n-space>
   </n-card>
 
-  <n-card class="my-4" title="我的文章">
+  <n-card
+    class="my-4"
+    title="我的文章"
+  >
     <template #header-extra>
-      <n-button round @click="router.push('/editor')">
+      <n-button
+        round
+        @click="router.push('/editor')"
+      >
         <template #icon>
           <n-icon :component="Pen" />
         </template>
         写文章
       </n-button>
     </template>
-    <n-list show-divider hoverable>
+    <n-list
+      show-divider
+      hoverable
+    >
       <n-empty
+        v-if="toLength(Object.keys(store.my_articles).length) == 0"
         size="huge"
         class="my-16"
         description="暂时还没有文章发表呢.."
-        v-if="toLength(Object.keys(store.my_articles).length) == 0"
       />
       <div v-else>
         <div v-for="(item, index) in store.my_articles">
@@ -81,9 +95,14 @@
                       name: 'post',
                       query: { id: item['id'] },
                     }"
-                    >{{ item["title"] }}
+                  >
+                    {{ item["title"] }}
                   </router-link>
-                  <n-tag type="success" size="small" class="ml-2">
+                  <n-tag
+                    type="success"
+                    size="small"
+                    class="ml-2"
+                  >
                     {{ item["category"] }}
                   </n-tag>
                 </div>
@@ -116,8 +135,11 @@
       label-placement="left"
       label-align="left"
     >
-      <n-form-item  path="nickname">
-        <n-input v-model:value="formValue.nickname" placeholder="输入昵称" />
+      <n-form-item path="nickname">
+        <n-input
+          v-model:value="formValue.nickname"
+          placeholder="输入昵称"
+        />
       </n-form-item>
       <n-form-item path="description">
         <n-input
@@ -128,7 +150,13 @@
     </n-form>
     <template #footer>
       <n-space justify="center">
-        <n-button strong @click="handleClick" class="w-full">提交修改</n-button>
+        <n-button
+          strong
+          class="w-full"
+          @click="handleClick"
+        >
+          提交修改
+        </n-button>
       </n-space>
     </template>
   </n-modal>

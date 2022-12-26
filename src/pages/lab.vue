@@ -5,7 +5,6 @@
       title="实验室研发中！"
       description="过段时间再来看看！"
       size="huge"
-    >
-    </n-result>
+    />
   </n-card>
 </template>

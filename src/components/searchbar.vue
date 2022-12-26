@@ -1,14 +1,21 @@
 <template>
-  <n-spin :show="loading" size="small">
-    <n-popover trigger="click" :show="showPopover" :duration="500">
+  <n-spin
+    :show="loading"
+    size="small"
+  >
+    <n-popover
+      trigger="click"
+      :show="showPopover"
+      :duration="500"
+    >
       <template #trigger>
         <n-input
-          size="large"
           v-model:value="searchVal"
+          size="large"
           passively-activated
-          @change="handleSearch"
           round
           placeholder="搜索文章"
+          @change="handleSearch"
         >
           <template #prefix>
             <n-icon :component="SearchIcon" />

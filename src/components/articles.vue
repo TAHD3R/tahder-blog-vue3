@@ -2,9 +2,9 @@
   <n-card>
     <n-list hoverable>
       <n-empty
+        v-if="toLength(Object.keys(store.articles).length) == 0"
         size="huge"
         description="暂时还没有文章呢.."
-        v-if="toLength(Object.keys(store.articles).length) == 0"
       />
       <div v-else>
         <div v-for="(item, index) in store.articles">
@@ -12,7 +12,10 @@
             <div class="flex flex-row">
               <div class="flex flex-col">
                 <div class="text-xl font-bold mt-4 sm:mt-8">
-                  <n-ellipsis :line-clamp="1" :tooltip="false">
+                  <n-ellipsis
+                    :line-clamp="1"
+                    :tooltip="false"
+                  >
                     <router-link
                       :to="{
                         name: 'post',
@@ -24,11 +27,18 @@
                   </n-ellipsis>
                 </div>
                 <div>
-                  <n-tag type="success" size="small">
+                  <n-tag
+                    type="success"
+                    size="small"
+                  >
                     {{ item["category"] }}
                   </n-tag>
                 </div>
-                <n-ellipsis :line-clamp="2" class="my-4">
+                <n-ellipsis
+                  :line-clamp="2"
+                  class="my-4"
+                  :tooltip="false"
+                >
                   {{ item["summary"] }}
                 </n-ellipsis>
 
@@ -39,15 +49,21 @@
                     <img
                       :src="item['avatar']"
                       class="w-8 h-8 mr-2 rounded-full"
-                    />
+                    >
                     <div>{{ item["author"] }}</div>
                   </div>
                   <div class="flex items-center">
-                    <n-icon :component="ViewsIcon" class="mr-2" />
+                    <n-icon
+                      :component="ViewsIcon"
+                      class="mr-2"
+                    />
                     浏览量{{ item["views"] }}
                   </div>
                   <div class="flex items-center">
-                    <n-icon :component="CommentIcon" class="mr-2" />
+                    <n-icon
+                      :component="CommentIcon"
+                      class="mr-2"
+                    />
                     评论数0
                   </div>
                   <div class="hidden xl:inline font-normal">

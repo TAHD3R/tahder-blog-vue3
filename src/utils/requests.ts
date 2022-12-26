@@ -5,6 +5,7 @@ import axiosRetry from "axios-retry";
 // Pinia 状态管理
 import { useStore } from "../store";
 import pinia from "../store";
+import router from "../router";
 const store = useStore(pinia);
 
 // 提示模块
@@ -56,6 +57,7 @@ request.interceptors.response.use(
       store.delAuth();
       store.setNavbar(false);
       message.info("Token已过期, 请重新登录。");
+      router.push({ name: "index" });
     }
     return response;
   },

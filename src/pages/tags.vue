@@ -4,28 +4,33 @@
       title="滑动标签页查看更多分类"
       type="success"
       class="flex sm:hidden mb-4"
-    >
-    </n-alert>
+    />
     <n-tabs
+      v-if="dataPrepared"
       animated
       type="line"
       @update:value="handleSwitch"
-      v-if="dataPrepared"
     >
       <n-tab-pane
+        v-for="(item, index) in options"
         :name="item['id']"
         :tab="item['name']"
-        v-for="(item, index) in options"
       >
-        <div class="text-4xl font-bold my-4">{{ item["name"] }}</div>
+        <div class="text-4xl font-bold my-4">
+          {{ item["name"] }}
+        </div>
         <div>{{ item["description"] }}</div>
 
-        <n-list show-divider hoverable class="my-4">
+        <n-list
+          show-divider
+          hoverable
+          class="my-4"
+        >
           <n-empty
+            v-if="toLength(Object.keys(articles_list).length) == 0"
             size="huge"
             class="my-16"
             description="暂时还没有文章发表呢.."
-            v-if="toLength(Object.keys(articles_list).length) == 0"
           />
           <div v-else>
             <div v-for="(item, index) in articles_list">
@@ -38,13 +43,23 @@
                           name: 'post',
                           query: { id: item['id'] },
                         }"
-                        >{{ item["title"] }}
+                      >
+                        {{ item["title"] }}
                       </router-link>
-                      <n-tag type="success" size="small" class="ml-2">
+                      <n-tag
+                        type="success"
+                        size="small"
+                        class="ml-2"
+                        :tooltip="false"
+                      >
                         {{ item["category"] }}
                       </n-tag>
                     </div>
-                    <n-ellipsis :line-clamp="2" class="my-4">
+                    <n-ellipsis
+                      :line-clamp="2"
+                      class="my-4"
+                      :tooltip="false"
+                    >
                       {{ item["summary"] }}
                     </n-ellipsis>
 
@@ -55,15 +70,21 @@
                         <img
                           :src="item['avatar']"
                           class="w-8 h-8 mr-2 rounded-full"
-                        />
+                        >
                         <div>{{ item["author"] }}</div>
                       </div>
                       <div class="flex items-center">
-                        <n-icon :component="ViewsIcon" class="mr-2" />
+                        <n-icon
+                          :component="ViewsIcon"
+                          class="mr-2"
+                        />
                         浏览量{{ item["views"] }}
                       </div>
                       <div class="flex items-center">
-                        <n-icon :component="CommentIcon" class="mr-2" />
+                        <n-icon
+                          :component="CommentIcon"
+                          class="mr-2"
+                        />
                         评论数0
                       </div>
                       <div class="hidden xl:inline">

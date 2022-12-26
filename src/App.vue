@@ -1,12 +1,16 @@
 <template>
-  <n-config-provider :theme="darkTheme" :locale="zhCN" :date-locale="dateZhCN">
+  <n-config-provider
+    :theme="darkTheme"
+    :locale="zhCN"
+    :date-locale="dateZhCN"
+  >
     <n-loading-bar-provider>
       <n-message-provider>
         <n-notification-provider>
           <n-global-style />
-          <navbar></navbar>
-          <div class="m-4 sm:m-8 md:16">
-            <router-view></router-view>
+          <navbar />
+          <div class="mx-4 my-4 sm:mx-8 sm:my-8 md:mx-8  lg:mx-16  xl:mx-32 2xl:mx-64">
+            <router-view />
           </div>
 
           <n-back-top :right="36" />

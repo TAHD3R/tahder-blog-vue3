@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "eslint:comment": "使用 ESLint 检查并自动修复 src 目录下所有扩展名为 .js 和 .vue 的文件",
+    "eslint": "eslint --ext .js,.vue,.ts --ignore-path .gitignore --fix src"
   },
   "dependencies": {
     "@kangc/v-md-editor": "^2.3.15",
@@ -23,9 +25,15 @@
     "vue-vditor": "^0.0.7"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.47.1",
+    "@typescript-eslint/parser": "^5.47.1",
     "@vicons/ionicons5": "^0.12.0",
     "@vitejs/plugin-vue": "^3.2.0",
     "autoprefixer": "^10.4.13",
+    "eslint": "^8.30.0",
+    "eslint-plugin-vue": "^9.8.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "@vue/eslint-config-prettier": "^6.0.0",
     "naive-ui": "^2.34.2",
     "postcss": "^8.4.19",
     "tailwindcss": "^3.2.4",

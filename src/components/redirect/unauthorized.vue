@@ -7,7 +7,9 @@
       size="huge"
     >
       <template #footer>
-        <n-button @click="router.push('/')"> 送我回去 </n-button>
+        <n-button @click="router.push('/')">
+          送我回去
+        </n-button>
       </template>
     </n-result>
   </n-card>

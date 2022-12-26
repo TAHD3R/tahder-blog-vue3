@@ -1,13 +1,20 @@
 <template>
   <nav class="navbar px-4 md:px-8">
-    <n-grid cols="4 m:8 l:12" x-gap="8" item-responsive responsive="screen">
+    <n-grid
+      cols="4 m:8 l:12"
+      x-gap="8"
+      item-responsive
+      responsive="screen"
+    >
       <n-grid-item span="0 m:1">
         <div class="nav-common">
           <img
             src="/src/assets/logo.svg"
             class="hidden sm:inline w-8 h-8 mr-2"
-          />
-          <div class="hidden md:inline font-bold text-lg">塔格德</div>
+          >
+          <div class="hidden md:inline font-bold text-lg">
+            塔格德
+          </div>
         </div>
       </n-grid-item>
       <n-grid-item span="0 m:0 l:3" />
@@ -20,13 +27,21 @@
                   name: 'index',
                 }"
               >
-                <n-button text class="font-semibold">
+                <n-button
+                  text
+                  class="font-semibold"
+                >
                   <template #icon>
-                    <n-icon :component="HomeIcon" size="24" />
+                    <n-icon
+                      :component="HomeIcon"
+                      size="24"
+                    />
                   </template>
-                  <div class="hidden md:inline font-semibold ml-2">首页</div>
-                </n-button></router-link
-              >
+                  <div class="hidden md:inline font-semibold ml-2">
+                    首页
+                  </div>
+                </n-button>
+              </router-link>
             </n-grid-item>
             <n-grid-item class="mx-auto">
               <router-link
@@ -34,15 +49,21 @@
                   name: 'tags',
                 }"
               >
-                <n-button text class="font-semibold">
+                <n-button
+                  text
+                  class="font-semibold"
+                >
                   <template #icon>
-                    <n-icon :component="BookIcon" size="24" />
+                    <n-icon
+                      :component="BookIcon"
+                      size="24"
+                    />
                   </template>
                   <div class="hidden md:inline font-semibold ml-2">
                     文章仓库
                   </div>
-                </n-button></router-link
-              >
+                </n-button>
+              </router-link>
             </n-grid-item>
             <n-grid-item class="mx-auto">
               <router-link
@@ -50,13 +71,21 @@
                   name: 'lab',
                 }"
               >
-                <n-button text class="font-semibold">
+                <n-button
+                  text
+                  class="font-semibold"
+                >
                   <template #icon>
-                    <n-icon :component="LabIcon" size="24" />
+                    <n-icon
+                      :component="LabIcon"
+                      size="24"
+                    />
                   </template>
-                  <div class="hidden md:inline font-semibold ml-2">实验室</div>
-                </n-button></router-link
-              >
+                  <div class="hidden md:inline font-semibold ml-2">
+                    实验室
+                  </div>
+                </n-button>
+              </router-link>
             </n-grid-item>
             <n-grid-item class="mx-auto">
               <router-link
@@ -64,49 +93,78 @@
                   name: 'about',
                 }"
               >
-                <n-button text class="font-semibold">
+                <n-button
+                  text
+                  class="font-semibold"
+                >
                   <template #icon>
-                    <n-icon :component="UserIcon" size="24" />
+                    <n-icon
+                      :component="UserIcon"
+                      size="24"
+                    />
                   </template>
-                  <div class="hidden md:inline font-semibold ml-2">关于我</div>
-                </n-button></router-link
-              >
+                  <div class="hidden md:inline font-semibold ml-2">
+                    关于我
+                  </div>
+                </n-button>
+              </router-link>
             </n-grid-item>
           </n-grid>
         </div>
       </n-grid-item>
       <n-grid-item span="0 m:1 l:2" />
       <n-grid-item span="0 m:1">
-          <searchbar class="flex justify-center items-center h-16 w-full"/>
+        <searchbar class="flex justify-center items-center h-16 w-full" />
       </n-grid-item>
       <n-grid-item span="1">
-        <div v-if="store.isLogin" class="nav-common">
+        <div
+          v-if="store.isLogin"
+          class="nav-common"
+        >
           <div class="flex items-center justify-center">
-            <n-badge :value="1" show-zero class="w-8 h-8">
+            <n-badge
+              :value="1"
+              show-zero
+              class="w-8 h-8"
+            >
               <img
                 :src="store.userinfo.avatar"
                 alt=""
                 class="w-8 h-8 rounded-md"
-              />
+              >
             </n-badge>
             <n-dropdown
               :options="options"
               :show-arrow="true"
               @select="handleSelect"
             >
-              <n-button text class="mx-2">
+              <n-button
+                text
+                class="mx-2"
+              >
                 {{ store.userinfo.nickname }}
                 <n-icon :component="ArrowIcon" />
               </n-button>
             </n-dropdown>
           </div>
         </div>
-        <div v-else class="nav-common">
-          <n-button round @click="store.showLogin = true">登录/注册</n-button>
+        <div
+          v-else
+          class="nav-common"
+        >
+          <n-button
+            round
+            @click="store.showLogin = true"
+          >
+            登录/注册
+          </n-button>
         </div>
       </n-grid-item>
     </n-grid>
-    <n-modal v-model:show="store.showLogin" transform-origin="center">
+    <n-modal
+      v-model:show="store.showLogin"
+      transform-origin="center"
+    >
       <n-card class="login-modal">
         <login />
       </n-card>

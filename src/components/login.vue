@@ -1,13 +1,30 @@
 <template>
   <n-space vertical>
-    <img src="/src/assets/logo.svg" class="logo mx-auto" />
+    <img
+      src="/src/assets/logo.svg"
+      class="logo mx-auto"
+    >
     <div class="flex justify-center">
-      <div class="text-2xl font-bold mb-4">专注技术，分享生活。</div>
+      <div class="text-2xl font-bold mb-4">
+        专注技术，分享生活。
+      </div>
     </div>
-    <n-tabs default-value="login" justify-content="space-evenly" type="segment" animated>
-      <n-tab-pane name="login" tab="登录">
+    <n-tabs
+      default-value="login"
+      justify-content="space-evenly"
+      type="segment"
+      animated
+    >
+      <n-tab-pane
+        name="login"
+        tab="登录"
+      >
         <n-space vertical>
-          <n-form ref="formRef" block :model="formValue">
+          <n-form
+            ref="formRef"
+            block
+            :model="formValue"
+          >
             <n-space vertical>
               <n-input
                 v-model:value="formValue.username"
@@ -35,13 +52,15 @@
             </n-space>
           </n-form>
           <n-space justify="end">
-            <n-button text> 忘记密码？ </n-button>
+            <n-button text>
+              忘记密码？
+            </n-button>
           </n-space>
           <n-button
             strong
-            @click="handleLogin"
             :loading="loadingRef"
             class="w-full mb-8 mt-4"
+            @click="handleLogin"
           >
             <template #icon>
               <n-icon><LoginIcon /></n-icon>
@@ -50,8 +69,15 @@
           </n-button>
         </n-space>
       </n-tab-pane>
-      <n-tab-pane name="register" tab="注册">
-        <n-form ref="regFormRef" block :model="regFormValue">
+      <n-tab-pane
+        name="register"
+        tab="注册"
+      >
+        <n-form
+          ref="regFormRef"
+          block
+          :model="regFormValue"
+        >
           <n-space vertical>
             <n-input
               v-model:value="regFormValue.username"
@@ -103,9 +129,9 @@
         </n-form>
         <n-button
           strong
-          @click="handleRegister"
           :loading="loadingRef"
           class="w-full mt-4"
+          @click="handleRegister"
         >
           <template #icon>
             <n-icon><LoginIcon /></n-icon>

@@ -41,7 +41,7 @@ export const useStore: any = defineStore("main", {
       this.token = token;
       get_user(token)
         .then((res) => {
-          let users = res.data.data;
+          const users = res.data.data;
           this.updateUserinfo(users);
         })
         .catch((err) => {

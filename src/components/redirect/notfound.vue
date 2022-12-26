@@ -7,7 +7,9 @@
       size="huge"
     >
       <template #footer>
-        <n-button @click="router.push('/')"> 回去找点乐子吧 </n-button>
+        <n-button @click="router.push('/')">
+          回去找点乐子吧
+        </n-button>
       </template>
     </n-result>
   </n-card>

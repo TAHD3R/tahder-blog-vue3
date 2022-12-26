@@ -16,21 +16,30 @@
               :src="store.banner[0].img"
               alt=""
               class="w-full h-[16rem] sm:h-[32rem] rounded-2xl bg-center object-cover"
-            />
-            <div
-              class="absolute bottom-0 left-0 w-full h-full lg:h-2/5 backdrop-blur-lg rounded-b-2xl rounded-t-2xl md:rounded-t-none"
-            />
+            >
+            <!-- <div
+              class="absolute bottom-0 left-0 w-full h-full lg:h-[16rem] backdrop-blur-lg rounded-b-2xl rounded-t-2xl lg:rounded-t-none"
+            /> -->
             <n-space
               vertical
               class="absolute bottom-0 left-0 w-full sm:w-3/5"
             >
               <div class="font-bold text-lg mx-4 sm:mx-16 sm:text-3xl">
                 <div class="font-bold">
-                  {{ store.banner[0].title }}
+                  <n-ellipsis
+                    :line-clamp="1"
+                    :tooltip="false"
+                  >
+                    {{ store.banner[0].title }}
+                  </n-ellipsis>
                 </div>
               </div>
               <div>
-                <n-ellipsis :line-clamp="2" class="mx-4 sm:mx-16">
+                <n-ellipsis
+                  :line-clamp="2"
+                  class="mx-4 sm:mx-16"
+                  :tooltip="false"
+                >
                   {{ store.banner[0].summary }}
                 </n-ellipsis>
               </div>
@@ -42,15 +51,21 @@
                     <img
                       :src="store.banner[0].avatar"
                       class="w-8 h-8 mr-2 rounded-full"
-                    />
+                    >
                     <div>{{ store.banner[0].author }}</div>
                   </div>
                   <div class="flex items-center">
-                    <n-icon :component="ViewsIcon" class="mr-2" />
+                    <n-icon
+                      :component="ViewsIcon"
+                      class="mr-2"
+                    />
                     浏览量{{ store.banner[0].views }}
                   </div>
                   <div class="flex items-center">
-                    <n-icon :component="CommentIcon" class="mr-2" />
+                    <n-icon
+                      :component="CommentIcon"
+                      class="mr-2"
+                    />
                     评论数0
                   </div>
                   <div class="hidden xl:inline">
@@ -85,24 +100,39 @@
                   :src="store.banner[1].img"
                   alt=""
                   class="w-full h-[15.5rem] rounded-2xl bg-center object-cover"
-                />
-                <div
+                >
+                <!-- <div
                   class="absolute bottom-0 left-0 w-full h-full sm:h-2/5 lg:h-0 backdrop-blur-lg rounded-b-2xl rounded-t-2xl sm:rounded-t-none"
-                />
-                <n-space vertical class="absolute bottom-0 left-0 w-full">
+                /> -->
+                <n-space
+                  vertical
+                  class="absolute bottom-0 left-0 w-full"
+                >
                   <div class="font-bold text-lg mx-4 sm:mx-8 sm:text-xl">
                     <div class="font-bold">
-                      {{ store.banner[1].title }}
+                      <n-ellipsis
+                        :line-clamp="1"
+                        :tooltip="false"
+                      >
+                        {{ store.banner[1].title }}
+                      </n-ellipsis>
                     </div>
                   </div>
-                  <n-ellipsis :line-clamp="2" class="mx-4 mb-4 sm:mx-8">
+                  <n-ellipsis
+                    :line-clamp="2"
+                    class="mx-4 mb-4 sm:mx-8"
+                    :tooltip="false"
+                  >
                     {{ store.banner[1].summary }}
                   </n-ellipsis>
                 </n-space>
               </div>
             </router-link>
           </n-grid-item>
-          <n-grid-item span="1" id="anchor-articles">
+          <n-grid-item
+            id="anchor-articles"
+            span="1"
+          >
             <router-link
               :to="{ name: 'post', query: { id: store.banner[2].id } }"
             >
@@ -113,17 +143,29 @@
                   :src="store.banner[2].img"
                   alt=""
                   class="w-full h-[15.5rem] rounded-2xl bg-center object-cover"
-                />
-                <div
+                >
+                <!-- <div
                   class="absolute bottom-0 left-0 w-full h-full sm:h-2/5 lg:h-0 backdrop-blur-lg rounded-b-2xl rounded-t-2xl sm:rounded-t-none"
-                />
-                <n-space vertical class="absolute bottom-0 left-0 w-full">
+                /> -->
+                <n-space
+                  vertical
+                  class="absolute bottom-0 left-0 w-full"
+                >
                   <div class="font-bold text-lg mx-4 sm:mx-8 sm:text-xl">
                     <div class="font-bold">
-                      {{ store.banner[2].title }}
+                      <n-ellipsis
+                        :line-clamp="1"
+                        :tooltip="false"
+                      >
+                        {{ store.banner[2].title }}
+                      </n-ellipsis>
                     </div>
                   </div>
-                  <n-ellipsis :line-clamp="2" class="mx-4 mb-4 sm:mx-8">
+                  <n-ellipsis
+                    :line-clamp="2"
+                    class="mx-4 mb-4 sm:mx-8"
+                    :tooltip="false"
+                  >
                     {{ store.banner[2].summary }}
                   </n-ellipsis>
                 </n-space>

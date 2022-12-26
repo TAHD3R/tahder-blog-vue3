@@ -17,7 +17,55 @@
     class="mt-4"
   >
     <n-grid-item span="0 m:1">
-      <n-card title="塔格德的项目与工具库" hoverable>
+      <n-card
+        title="统计数据"
+        class="mb-4"
+      >
+        <n-row>
+          <n-col :span="12">
+            <n-statistic label="文章数量">
+              <template #prefix>
+                <n-icon>
+                  <Save />
+                </n-icon>
+              </template>
+              <n-number-animation
+                show-separator
+                :from="0"
+                :to="6"
+              />
+            </n-statistic>
+          </n-col>
+          <n-col :span="12">
+            <n-statistic label="网站访问量">
+              <n-number-animation
+                show-separator
+                :from="0"
+                :to="8222"
+              />
+            </n-statistic>
+          </n-col>
+          <n-col :span="12">
+            <n-statistic label="活跃用户">
+              <n-number-animation
+                show-separator
+                :from="0"
+                :to="32"
+              />
+            </n-statistic>
+          </n-col>
+          <n-col :span="12">
+            <n-statistic label="新用户">
+              <n-avatar-group
+                :options="options"
+                :size="32"
+                :max="3"
+              />
+            </n-statistic>
+          </n-col>
+        </n-row>
+      </n-card>
+      <n-card title="塔格德的项目与工具库">
         <n-space>
           <n-button>Clockwise计时</n-button>
           <n-button>Pomorodo番茄钟</n-button>
@@ -25,7 +73,9 @@
           <n-button>诗歌&文学作品</n-button>
           <n-button>影视鉴赏</n-button>
         </n-space>
-        <template #action> 前往实验室探索更多秘密！ </template>
+        <template #action>
+          前往实验室探索更多秘密！
+        </template>
       </n-card>
     </n-grid-item>
     <n-grid-item span="1 s:2">
@@ -55,7 +105,7 @@ import { useMessage } from "naive-ui";
 // Pinia 状态管理
 import { useStore } from "../store";
 import { useRouter } from "vue-router";
-import { Search as SearchIcon } from "@vicons/ionicons5";
+import { Search as SearchIcon, Save } from "@vicons/ionicons5";
 import banner from "~/components/banner.vue";
 import hot from "~/components/hot.vue";
 import about from "~/components/about.vue";
@@ -71,6 +121,29 @@ const message = useMessage();
 const searchVal = ref<string | null>(null);
 const containerRef = ref<HTMLElement | undefined>(undefined);
 const loading = ref(false);
+
+const options = [
+  {
+    name: "张三",
+    src: "https://ui-avatars.com/api/?name=Admin",
+  },
+  {
+    name: "李四",
+    src: "https://ui-avatars.com/api/?name=lisi",
+  },
+  {
+    name: "王五",
+    src: "https://ui-avatars.com/api/?name=wangwu",
+  },
+  {
+    name: "赵六",
+    src: "https://ui-avatars.com/api/?name=zhaoliu",
+  },
+  {
+    name: "七仔",
+    src: "https://ui-avatars.com/api/?name=qiqi",
+  },
+];
 
 function handleSearch() {
   loading.value = true;
