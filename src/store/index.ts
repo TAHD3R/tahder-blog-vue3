@@ -1,11 +1,16 @@
 import { createPinia, defineStore } from "pinia";
-import { ref, computed } from "vue";
-import { darkTheme, useMessage, useOsTheme } from "naive-ui";
+import { computed } from "vue";
+import { darkTheme, createDiscreteApi, ConfigProviderProps } from "naive-ui";
 import { get_user, logout } from "../api/users";
 
 const pinia = createPinia();
-const osTheme = useOsTheme();
-
+// 提示模块
+const configProviderPropsRef = computed<ConfigProviderProps>(() => ({
+  theme: darkTheme,
+}));
+const { message } = createDiscreteApi(["message"], {
+  configProviderProps: configProviderPropsRef,
+});
 export const useStore: any = defineStore("main", {
   state: () => {
     return {
@@ -24,12 +29,12 @@ export const useStore: any = defineStore("main", {
       topics: [],
       banner: [],
       ads: [],
-      searchResults:[],
-      page:1,
-      pages:1,
+      searchResults: [],
+      page: 1,
+      pages: 1,
       hasNextPage: false,
       editorTheme: "dark",
-      isSkeleton : true,
+      isSkeleton: true,
       token: localStorage.getItem("token") || undefined,
     };
   },
@@ -39,18 +44,16 @@ export const useStore: any = defineStore("main", {
   actions: {
     getUsers(token: string) {
       this.token = token;
-      get_user(token)
-        .then((res) => {
-          const users = res.data.data;
-          this.updateUserinfo(users);
-        })
-        .catch((err) => {
-        });
+      get_user(token).then((res) => {
+        const users = res.data.data;
+        this.updateUserinfo(users);
+      });
     },
     userLogout() {
       this.delAuth();
       this.setNavbar(false);
       logout(localStorage.getItem("token")).then((res) => {
+        message.info(res.data.msg);
       });
     },
     setNavbar(status: boolean) {
@@ -63,16 +66,6 @@ export const useStore: any = defineStore("main", {
     delAuth() {
       this.token = undefined;
       localStorage.removeItem("users");
-    },
-    setCarousel(status: boolean) {
-      this.showCarousel = status;
-    },
-    toggleTheme() {
-      if ((this.dark_theme = true)) {
-        this.theme = null;
-      } else {
-        this.theme = darkTheme;
-      }
     },
   },
 });

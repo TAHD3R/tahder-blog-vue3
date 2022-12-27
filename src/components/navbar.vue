@@ -232,16 +232,6 @@ function handleSelect(key: string | number) {
     message.success("已退出登录");
   }
 }
-
-function handleSearch() {
-  let data = {
-    query: searchVal.value,
-  };
-  search(data).then((res) => {
-    store.searchResults = res.data.data;
-    router.push({ name: "search" });
-  });
-}
 </script>
 
 <style scoped>

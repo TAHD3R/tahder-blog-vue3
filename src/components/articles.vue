@@ -7,7 +7,10 @@
         description="暂时还没有文章呢.."
       />
       <div v-else>
-        <div v-for="(item, index) in store.articles">
+        <div
+          v-for="(item, index) in store.articles"
+          :key="index"
+        >
           <n-list-item class="rounded-3xl">
             <div class="flex flex-row">
               <div class="flex flex-col">
@@ -64,7 +67,7 @@
                       :component="CommentIcon"
                       class="mr-2"
                     />
-                    评论数0
+                    评论数{{ item["comments"] }}
                   </div>
                   <div class="hidden xl:inline font-normal">
                     <n-time
@@ -94,7 +97,7 @@ import {
 } from "@vicons/ionicons5";
 // Pinia 状态管理
 import { useStore } from "../store";
-import pagination from "~/components/pagination.vue";
+import pagination from "../components/pagination.vue";
 
 const props = defineProps(["page", "category"]);
 const store = useStore();

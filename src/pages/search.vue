@@ -15,7 +15,10 @@
         <div class="text-3xl font-bold my-4">
           搜索内容
         </div>
-        <div v-for="(item, index) in store.searchResults">
+        <div
+          v-for="(item, index) in store.searchResults"
+          :key="index"
+        >
           <n-list-item class="rounded-3xl">
             <div class="flex flex-row">
               <div class="flex flex-col">

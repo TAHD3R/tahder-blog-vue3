@@ -24,7 +24,7 @@
 import { ref, onMounted } from "vue";
 import { darkTheme, zhCN, dateZhCN } from "naive-ui";
 
-import navbar from "~/components/navbar.vue";
+import navbar from "./components/navbar.vue";
 
 import { get_banner } from "./api/banner";
 import { get_articles, get_articles_hot } from "./api/posts";

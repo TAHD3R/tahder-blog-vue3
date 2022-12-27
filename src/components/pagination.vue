@@ -20,5 +20,4 @@ import { ref } from "vue";
 import { useStore } from "../store";
 import pagination from "~/components/pagination.vue";
 const store = useStore();
-
 </script>

@@ -18,7 +18,10 @@
         hoverable
         clickable
       >
-        <div v-for="(item, index) in store.articles_hot">
+        <div
+          v-for="(item, index) in store.articles_hot"
+          :key="index"
+        >
           <n-list-item>
             <n-thing content-style="margin-top: 10px;">
               <template #header>

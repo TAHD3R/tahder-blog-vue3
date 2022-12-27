@@ -85,7 +85,10 @@
         description="暂时还没有文章发表呢.."
       />
       <div v-else>
-        <div v-for="(item, index) in store.my_articles">
+        <div
+          v-for="(item, index) in store.my_articles"
+          :key="index"
+        >
           <n-list-item class="my-4">
             <div class="flex flex-row">
               <div class="flex flex-col">

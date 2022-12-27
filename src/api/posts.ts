@@ -53,7 +53,7 @@ export const get_comments = (article_id: any) => {
 export const make_comment = (data: any) => {
   return request({
     method: "POST",
-    url: "/comments",
+    url: "/comment",
     headers: { "Content-Type": "application/json" },
     data: data,
   });

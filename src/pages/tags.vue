@@ -13,6 +13,7 @@
     >
       <n-tab-pane
         v-for="(item, index) in options"
+        :key="index"
         :name="item['id']"
         :tab="item['name']"
       >
@@ -21,9 +22,9 @@
         </div>
         <div>{{ item["description"] }}</div>
 
-        <n-list
-          show-divider
-          hoverable
+        <n-list 
+          show-divider 
+          hoverable 
           class="my-4"
         >
           <n-empty
@@ -33,7 +34,10 @@
             description="暂时还没有文章发表呢.."
           />
           <div v-else>
-            <div v-for="(item, index) in articles_list">
+            <div
+              v-for="(item, index) in articles_list"
+              :key="index"
+            >
               <n-list-item class="rounded-3xl">
                 <div class="flex flex-row">
                   <div class="flex flex-col">
@@ -107,7 +111,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, reactive } from "vue";
+import { ref, onMounted } from "vue";
 import { get_categories } from "../api/tags";
 import {
   EyeOutline as ViewsIcon,
@@ -115,10 +119,7 @@ import {
 } from "@vicons/ionicons5";
 import { get_category_articles } from "../api/tags";
 import { toLength } from "lodash";
-// Pinia 状态管理
-import { useStore } from "../store";
 
-const store = useStore();
 const options: any = [];
 const dataPrepared = ref(false);
 const articles_list = ref([]);

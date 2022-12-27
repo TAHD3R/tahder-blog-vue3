@@ -1,15 +1,12 @@
 <template>
-  <n-divider />
   <n-thing
     v-for="(item, index) in store.comments"
-    content-indented
+    :key="index"
     class="mb-8"
+    content-indented
   >
     <template #avatar>
-      <n-avatar
-        size="small"
-        :src="item['avatar']"
-      />
+      <n-avatar size="small" :src="item['avatar']" />
     </template>
     <template #header>
       {{ item["nickname"] }}
@@ -28,57 +25,52 @@
         type="relative"
       />
     </template>
-    {{ item["comment"] }}
-    <template #action>
-      <n-space>
-        <n-button
-          text
-          size="small"
-        >
-          <template #icon />
-          回复
-        </n-button>
-      </n-space>
-    </template>
-    <n-thing
-      v-if="false"
-      class="mx-8"
-      content-indented
-    >
-      <template #avatar>
-        <n-avatar size="small">
-          露露
-        </n-avatar>
-      </template>
-      <template #header>
-        宇宙最美最牛究极螺旋升天暗影美女
-      </template>
-      <template #description>
-        <n-time
-          :time="0"
-          :to="60000000"
-          type="relative"
-        />
-      </template>
-      <n-blockquote> 这篇文章写的很好！ </n-blockquote>
-      嘿嘿嘿，夹子你也太棒了吧！
-      <template #action>
-        <n-space>
-          <n-button size="small">
-            <template #icon />
-            回复
-          </n-button>
-        </n-space>
-      </template>
-    </n-thing>
+    <n-space vertical>
+      <n-text tag="div" v-if="item['parent']">
+        <n-blockquote>
+          <n-text italic>
+            {{ item["parent"]["nickname"] }}: {{ item["parent"]["comment"] }}
+          </n-text>
+        </n-blockquote>
+        <n-p>
+          <router-link to="/" #="{ navigate, href }" custom>
+            <n-a :href="href" @click="navigate">
+              @{{ item["parent"]["nickname"] }}
+            </n-a>
+          </router-link>
+          {{ item["comment"] }}
+        </n-p>
+      </n-text>
+      <n-text tag="div" v-else>
+        <n-p>
+          {{ item["comment"] }}
+        </n-p>
+      </n-text>
+      <n-button
+        text
+        size="small"
+        @click="handleReply(item['id'], item['nickname'])"
+      >
+        <template #icon>
+          <n-icon :component="Reply" />
+        </template>
+        回复
+      </n-button>
+    </n-space>
   </n-thing>
 </template>
 
 <script setup lang="ts">
 import { defineComponent, ref } from "vue";
+import { ChatboxEllipses as Reply } from "@vicons/ionicons5";
 // Pinia 状态管理
 import { useStore } from "../store";
 import router from "../router";
 const store = useStore();
+const emit = defineEmits(["callback"]);
 
+function handleReply(id: number, nickname: string) {
+  emit("callback", { id, nickname });
+  console.log({ id, nickname });
+}
 </script>

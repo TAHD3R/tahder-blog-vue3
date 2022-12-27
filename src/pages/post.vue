@@ -11,15 +11,8 @@
         <n-card>
           <n-h1>{{ store.article["title"] }}</n-h1>
           <div class="flex flex-row items-center mb-4">
-            <n-avatar
-              round
-              size="small"
-              :src="store.article['avatar']"
-            />
-            <n-button
-              text
-              class="mx-2"
-            >
+            <n-avatar round size="small" :src="store.article['avatar']" />
+            <n-button text class="mx-2">
               {{ store.article["author"] }}
             </n-button>
             <n-time
@@ -32,57 +25,37 @@
 
           <div ref="previewRef" />
 
-          <n-space
-            horizontal
-            justify="space-between"
-            class="my-4"
-          >
+          <n-space horizontal justify="space-between" class="my-4">
             <div class="font-bold">
               文章分类：
-              <n-tag
-                type="success"
-                size="small"
-              >
+              <n-tag type="success" size="small">
                 {{ store.article["category"] }}
               </n-tag>
             </div>
 
             <div class="font-bold ml-2">
               浏览量:
-              <n-tag
-                type="info"
-                size="small"
-              >
+              <n-tag type="info" size="small">
                 {{ store.article["views"] }}点击
               </n-tag>
             </div>
           </n-space>
 
           <n-space vertical>
-            <n-space
-              horizontal
-              justify="space-between"
-            >
-              <div class="font-bold text-xl">
-                关于作者
-              </div>
-              <n-button strong>
-                关注
-              </n-button>
+            <n-space horizontal justify="space-between">
+              <div class="font-bold text-xl">关于作者</div>
+              <n-button strong> 关注 </n-button>
             </n-space>
             <n-space horizontal>
               <img
                 :src="store.article['avatar']"
                 class="w-14 h-14 rounded-md"
-              >
+              />
               <n-space vertical>
                 <div class="text-lg font-bold">
                   {{ store.article["author"] }}
                 </div>
-                <n-ellipsis
-                  :line-clamp="2"
-                  class="text-sm"
-                >
+                <n-ellipsis :line-clamp="2" class="text-sm">
                   {{ store.article["description"] }}
                 </n-ellipsis>
               </n-space>
@@ -90,40 +63,46 @@
           </n-space>
 
           <n-divider> 评论区 </n-divider>
-          <div class="flex flex-col">
-            <n-input
-              v-model:value="commentValue"
-              type="textarea"
-              maxlength="80"
-              show-count
-              placeholder="请输入评论内容"
-              :autosize="{
-                minRows: 5,
-                maxRows: 5,
-              }"
-            />
-            <div class="flex flex-row my-2">
-              <div class="grow" />
-              <div>
-                <n-button
-                  size="large"
-                  secondary
-                  strong
-                  @click="handleComment"
-                >
-                  发表
-                </n-button>
-              </div>
-            </div>
-            <n-empty
-              v-if="toLength(Object.keys(store.comments).length) == 0"
-              size="huge"
-              class="my-16"
-              description="暂时还没有人来评论呢.."
-            />
-            <div v-else>
-              <comment />
-            </div>
+
+          <n-grid
+            cols="3 s:5"
+            :x-gap="16"
+            class="mb-4"
+            item-responsive
+            responsive="screen"
+          >
+            <n-gi span="2 s:4">
+              <n-mention
+                ref="myMentionRef"
+                v-model:value="commentRef"
+                :options="UserlistRef"
+                default-value="@"
+                :loading="loadingRef"
+                type="textarea"
+                show-count
+                placeholder="请输入评论内容"
+                :autosize="{
+                  minRows: 3,
+                  maxRows: 5,
+                }"
+                @search="pullUserlist"
+              />
+            </n-gi>
+            <n-gi>
+              <n-button strong @click="handleComment" class="w-full h-full">
+                发表
+              </n-button>
+            </n-gi>
+          </n-grid>
+
+          <n-empty
+            v-if="toLength(Object.keys(store.comments).length) == 0"
+            size="huge"
+            class="my-16"
+            description="暂时还没有人来评论呢.."
+          />
+          <div v-else>
+            <comment @callback="reply" />
           </div>
         </n-card>
       </n-grid-item>
@@ -140,10 +119,11 @@
 import { get_article, get_comments, make_comment } from "../api/posts";
 import { ref, onMounted, reactive, nextTick } from "vue";
 import { RouterLink, useRouter } from "vue-router";
-import comment from "~/components/comments.vue";
-import { get_articles } from "../api/posts";
-import { useMessage } from "naive-ui";
-import { toLength } from "lodash";
+import comment from "../components/comments.vue";
+import { get_articles } from "~/api/posts";
+import { get_userlist } from "~/api/users";
+import { useMessage, MentionOption, MentionInst } from "naive-ui";
+import { List, toLength } from "lodash";
 import Vditor from "vditor";
 // Pinia 状态管理
 import { useStore } from "../store";
@@ -156,11 +136,31 @@ const router_info = reactive({ ...router.currentRoute.value });
 const docLoaded = ref(false);
 const previewRef = ref<HTMLDivElement>();
 const outlineRef = ref<HTMLDivElement>();
-const containerRef = ref<HTMLElement | undefined>(undefined);
+const parentRef = ref<number | undefined>(null);
+const UserlistRef = ref<MentionOption[]>([]);
+const loadingRef = ref(false);
+const myMentionRef = ref<MentionInst | null>(null);
 const doc = reactive({
   content: "",
 });
-const commentValue = ref(null);
+const commentRef = ref(null);
+
+function reply(data: number) {
+  parentRef.value = data["id"];
+  myMentionRef.value?.focus();
+}
+
+function pullUserlist(pattern: string, prefix: string) {
+  get_userlist().then((res) => {
+    UserlistRef.value = res.data.data.map((v) => ({
+      label: pattern + v,
+      value: pattern + v,
+    }));
+    console.log(typeof res.data.data);
+
+    loadingRef.value = false;
+  });
+}
 
 onMounted(() => {
   get_article(router_info.query["id"]).then((res) => {
@@ -252,11 +252,11 @@ function handleComment() {
     let data = {
       user_id: user_id,
       article_id: router_info.query["id"],
-      comment: commentValue.value,
-      parent_id: null,
+      comment: commentRef.value,
+      parent_id: parentRef.value,
     };
 
-    if (commentValue.value != null) {
+    if (commentRef.value != null) {
       make_comment(data).then((res) => {
         if (res.data.code != 200) {
           nextTick(() => {
@@ -265,7 +265,7 @@ function handleComment() {
         } else {
           nextTick(() => {
             message.success(res.data.msg);
-            commentValue.value = null;
+            commentRef.value = null;
             get_comments(router_info.query["id"]).then((res) => {
               store.comments = res.data.data;
             });

@@ -42,3 +42,10 @@ export const get_user = (token: any) => {
         headers: { 'Authorization': 'Bearer ' + token },
     })
 }
+
+export const get_userlist = () => {
+    return request({
+        method: 'GET',
+        url: '/users',
+    })
+}
