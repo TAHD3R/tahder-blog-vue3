@@ -9,7 +9,9 @@
         <n-notification-provider>
           <n-global-style />
           <navbar />
-          <div class="mx-4 my-4 sm:mx-8 sm:my-8 md:mx-8  lg:mx-16  xl:mx-32 2xl:mx-64">
+          <div
+            class="mx-4 my-4 sm:mx-8 sm:my-8 md:mx-8 lg:mx-16 xl:mx-32 2xl:mx-64"
+          >
             <router-view />
           </div>
 
@@ -28,6 +30,7 @@ import navbar from "./components/navbar.vue";
 
 import { get_banner } from "./api/banner";
 import { get_articles, get_articles_hot } from "./api/posts";
+import { get_messages } from "./api/users";
 // Pinia 状态管理
 import { useStore } from "./store";
 
@@ -39,17 +42,21 @@ onMounted(() => {
     .then((res) => {
       store.banner = res.data.data;
       get_articles().then((res) => {
-      store.articles = res.data.data;
-      store.pages = res.data.extra.pages
-      store.hasNextPage = res.data.extra.has_next
-    });
+        store.articles = res.data.data;
+        store.pages = res.data.extra.pages;
+        store.hasNextPage = res.data.extra.has_next;
+      });
       get_articles_hot().then((res) => {
         store.articles_hot = res.data.data;
         store.hasHotArticles = true;
+        get_messages().then((res) => {
+          store.messages = res.data.data;
+          store.messageTotal = res.data.data[0].total;
+        });
       });
     })
     .catch((err) => {
-      console.log("数据拉取失败")
+      console.log("数据拉取失败");
     });
 });
 </script>

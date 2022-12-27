@@ -11,8 +11,15 @@
         <n-card>
           <n-h1>{{ store.article["title"] }}</n-h1>
           <div class="flex flex-row items-center mb-4">
-            <n-avatar round size="small" :src="store.article['avatar']" />
-            <n-button text class="mx-2">
+            <n-avatar
+              round
+              size="small"
+              :src="store.article['avatar']"
+            />
+            <n-button
+              text
+              class="mx-2"
+            >
               {{ store.article["author"] }}
             </n-button>
             <n-time
@@ -25,37 +32,57 @@
 
           <div ref="previewRef" />
 
-          <n-space horizontal justify="space-between" class="my-4">
+          <n-space
+            horizontal
+            justify="space-between"
+            class="my-4"
+          >
             <div class="font-bold">
               文章分类：
-              <n-tag type="success" size="small">
+              <n-tag
+                type="success"
+                size="small"
+              >
                 {{ store.article["category"] }}
               </n-tag>
             </div>
 
             <div class="font-bold ml-2">
               浏览量:
-              <n-tag type="info" size="small">
+              <n-tag
+                type="info"
+                size="small"
+              >
                 {{ store.article["views"] }}点击
               </n-tag>
             </div>
           </n-space>
 
           <n-space vertical>
-            <n-space horizontal justify="space-between">
-              <div class="font-bold text-xl">关于作者</div>
-              <n-button strong> 关注 </n-button>
+            <n-space
+              horizontal
+              justify="space-between"
+            >
+              <div class="font-bold text-xl">
+                关于作者
+              </div>
+              <n-button strong>
+                关注
+              </n-button>
             </n-space>
             <n-space horizontal>
               <img
                 :src="store.article['avatar']"
                 class="w-14 h-14 rounded-md"
-              />
+              >
               <n-space vertical>
                 <div class="text-lg font-bold">
                   {{ store.article["author"] }}
                 </div>
-                <n-ellipsis :line-clamp="2" class="text-sm">
+                <n-ellipsis
+                  :line-clamp="2"
+                  class="text-sm"
+                >
                   {{ store.article["description"] }}
                 </n-ellipsis>
               </n-space>
@@ -89,7 +116,11 @@
               />
             </n-gi>
             <n-gi>
-              <n-button strong @click="handleComment" class="w-full h-full">
+              <n-button
+                strong
+                class="w-full h-full"
+                @click="handleComment"
+              >
                 发表
               </n-button>
             </n-gi>

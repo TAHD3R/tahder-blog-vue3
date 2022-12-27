@@ -49,3 +49,18 @@ export const get_userlist = () => {
         url: '/users',
     })
 }
+
+export const get_messages = () => {
+    return request({
+        method: 'GET',
+        url: '/messages',
+    })
+}
+
+export const read_messages = (info) => {
+    return request({
+        method: 'DELETE',
+        url: '/messages',
+        data: info,
+    })
+}

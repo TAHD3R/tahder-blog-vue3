@@ -6,7 +6,10 @@
     content-indented
   >
     <template #avatar>
-      <n-avatar size="small" :src="item['avatar']" />
+      <n-avatar
+        size="small"
+        :src="item['avatar']"
+      />
     </template>
     <template #header>
       {{ item["nickname"] }}
@@ -26,22 +29,35 @@
       />
     </template>
     <n-space vertical>
-      <n-text tag="div" v-if="item['parent']">
+      <n-text
+        v-if="item['parent']"
+        tag="div"
+      >
         <n-blockquote>
           <n-text italic>
             {{ item["parent"]["nickname"] }}: {{ item["parent"]["comment"] }}
           </n-text>
         </n-blockquote>
         <n-p>
-          <router-link to="/" #="{ navigate, href }" custom>
-            <n-a :href="href" @click="navigate">
+          <router-link
+            to="/"
+            #="{ navigate, href }"
+            custom
+          >
+            <n-a
+              :href="href"
+              @click="navigate"
+            >
               @{{ item["parent"]["nickname"] }}
             </n-a>
           </router-link>
           {{ item["comment"] }}
         </n-p>
       </n-text>
-      <n-text tag="div" v-else>
+      <n-text
+        v-else
+        tag="div"
+      >
         <n-p>
           {{ item["comment"] }}
         </n-p>

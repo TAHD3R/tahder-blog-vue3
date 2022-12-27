@@ -123,8 +123,7 @@
         >
           <div class="flex items-center justify-center">
             <n-badge
-              :value="1"
-              show-zero
+              :value="store.messages[0].total"
               class="w-8 h-8"
             >
               <img
@@ -136,6 +135,7 @@
             <n-dropdown
               :options="options"
               :show-arrow="true"
+              placement="bottom-end"
               @select="handleSelect"
             >
               <n-button
@@ -174,33 +174,51 @@
 
 <script setup lang="ts">
 import { h, ref, Component } from "vue";
-import { NIcon, useMessage, useNotification, NotificationType } from "naive-ui";
+import { NIcon, useMessage, NAvatar, NText } from "naive-ui";
 import { RouterLink } from "vue-router";
 import {
   LibraryOutline as BookIcon,
-  BookmarksOutline as TagIcon,
-  PersonOutline as AboutIcon,
   PersonCircleOutline as UserIcon,
-  Pencil as EditIcon,
   LogOutOutline as LogoutIcon,
   HomeOutline as HomeIcon,
   ChevronForward as ArrowIcon,
   PlanetOutline as LabIcon,
-  Search as SearchIcon,
+  AtCircleOutline as MessageIcon,
+  CheckmarkSharp as CheckIcon,
 } from "@vicons/ionicons5";
-import { search } from "../api/posts";
+
 // 登录组件
 import login from "~/components/login.vue";
 import searchbar from "~/components/searchbar.vue";
+import messages from "~/components/messages.vue";
 // Pinia 状态管理
 import { useStore } from "../store";
-import router from "../router";
 
 const store = useStore();
 const message = useMessage();
-const searchVal = ref<string | null>(null);
 
 const options = [
+  {
+    key: "header",
+    type: "render",
+    render: renderHeader,
+  },
+  {
+    type: "divider",
+    key: "d1",
+  },
+  {
+    label: "站内消息",
+    key: "messages",
+    icon: renderIcon(MessageIcon),
+    children: [
+      {
+        key: "messages",
+        type: "render",
+        render: renderMessages,
+      },
+    ],
+  },
   {
     label: () =>
       h(
@@ -224,6 +242,37 @@ const options = [
 
 function renderIcon(icon: Component) {
   return () => h(NIcon, null, { default: () => h(icon) });
+}
+
+function renderHeader() {
+  return h(
+    "div",
+    {
+      style: "display: flex; align-items: center; padding: 8px 1rem;",
+    },
+    [
+      h(NAvatar, {
+        style: "margin-right: 12px;",
+        src: store.userinfo.avatar,
+      }),
+      h("div", null, [
+        h("div", null, [
+          h(NText, { depth: 2 }, { default: () => store.userinfo.nickname }),
+        ]),
+        h("div", { style: "font-size: 12px;" }, [
+          h(NText, { depth: 3 }, { default: () => store.userinfo.description }),
+        ]),
+      ]),
+    ]
+  );
+}
+
+function renderMessages() {
+  return h(messages, {
+    title: "测试",
+    content: "测试",
+    class: "flex w-40 mx-4 my-2",
+  });
 }
 
 function handleSelect(key: string | number) {
