@@ -21,7 +21,7 @@ export const useStore: any = defineStore("main", {
         ? JSON.parse(localStorage.getItem("users") || "{}")
         : false,
       articles: [],
-      messages: [],
+      messages: null,
       my_articles: [],
       articles_hot: [],
       comments: [],
@@ -30,6 +30,7 @@ export const useStore: any = defineStore("main", {
       topics: [],
       banner: [],
       ads: [],
+      stats:[],
       searchResults: [],
       page: 1,
       pages: 1,

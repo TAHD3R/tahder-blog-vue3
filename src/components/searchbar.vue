@@ -1,29 +1,17 @@
 <template>
-  <n-spin
-    :show="loading"
-    size="small"
-  >
-    <n-popover
-      trigger="click"
-      :show="showPopover"
-      :duration="500"
+  <n-spin :show="loading" size="small">
+    <n-input
+      v-model:value="searchVal"
+      size="large"
+      passively-activated
+      round
+      placeholder="搜索文章"
+      @change="handleSearch"
     >
-      <template #trigger>
-        <n-input
-          v-model:value="searchVal"
-          size="large"
-          passively-activated
-          round
-          placeholder="搜索文章"
-          @change="handleSearch"
-        >
-          <template #prefix>
-            <n-icon :component="SearchIcon" />
-          </template>
-        </n-input>
+      <template #prefix>
+        <n-icon :component="SearchIcon" />
       </template>
-      <span>没有找到搜索内容</span>
-    </n-popover>
+    </n-input>
   </n-spin>
 </template>
 <script setup lang="ts">
@@ -56,14 +44,9 @@ function handleSearch() {
       console.log(res);
       router.push({ name: "search", query: { keyword: searchVal.value } });
     } else {
-      //   message.error(res.data.msg);
-      showPopover.value = true;
+      message.error(res.data.msg);
     }
   });
-
-  setTimeout(() => {
-    showPopover.value = false;
-  }, 2000);
 
   nextTick(() => {
     loading.value = false;

@@ -10,7 +10,7 @@
           <n-global-style />
           <navbar />
           <div
-            class="mx-4 my-4 sm:mx-8 sm:my-8 md:mx-8 lg:mx-16 xl:mx-32 2xl:mx-64"
+            class="mx-4 my-4 sm:mx-8 sm:my-8 md:mx-8 lg:mx-16 xl:mx-32"
           >
             <router-view />
           </div>
@@ -28,7 +28,7 @@ import { darkTheme, zhCN, dateZhCN } from "naive-ui";
 
 import navbar from "./components/navbar.vue";
 
-import { get_banner } from "./api/banner";
+import { get_banner } from "./api/website";
 import { get_articles, get_articles_hot } from "./api/posts";
 import { get_messages } from "./api/users";
 // Pinia 状态管理
@@ -39,19 +39,21 @@ const store = useStore();
 onMounted(() => {
   // 获取数据
   get_banner()
-    .then((res) => {
-      store.banner = res.data.data;
-      get_articles().then((res) => {
-        store.articles = res.data.data;
-        store.pages = res.data.extra.pages;
-        store.hasNextPage = res.data.extra.has_next;
+    .then((res_banner) => {
+      store.banner = res_banner.data.data;
+      get_articles().then((res_articles) => {
+        store.articles = res_articles.data.data;
+        store.pages = res_articles.data.extra.pages;
+        store.hasNextPage = res_articles.data.extra.has_next;
       });
-      get_articles_hot().then((res) => {
-        store.articles_hot = res.data.data;
+      get_articles_hot().then((res_hot) => {
+        store.articles_hot = res_hot.data.data;
         store.hasHotArticles = true;
-        get_messages().then((res) => {
-          store.messages = res.data.data;
-          store.messageTotal = res.data.data[0].total;
+        get_messages().then((res_msg) => {
+          if (res_msg.data.data) {
+            store.messages = res_msg.data.data;
+            store.messageTotal = res_msg.data.data[0].total;
+          }
         });
       });
     })
