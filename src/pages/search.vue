@@ -88,21 +88,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, reactive } from "vue";
-import { useRouter } from "vue-router";
-import { get_categories } from "../api/tags";
 import {
   EyeOutline as ViewsIcon,
   ChatbubbleEllipsesOutline as CommentIcon,
 } from "@vicons/ionicons5";
-import { get_category_articles } from "../api/tags";
 import { toLength } from "lodash";
 // Pinia 状态管理
 import { useStore } from "../store";
 
 const store = useStore();
-const router = useRouter();
-const router_info = reactive({ ...router.currentRoute.value });
-
-
 </script>

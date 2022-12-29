@@ -187,7 +187,6 @@ import { update_userinfo } from "../api/users";
 const router = useRouter();
 const store = useStore();
 const active = ref(false);
-const placement = ref<DrawerPlacement>("right");
 const message = useMessage();
 const formValue = ref({
   nickname: "",

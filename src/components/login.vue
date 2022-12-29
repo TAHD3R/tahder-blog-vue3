@@ -1,7 +1,7 @@
 <template>
   <n-space vertical>
     <img
-      src="/src/assets/logo.svg"
+      src="/assets/logo.svg"
       class="logo mx-auto"
     >
     <div class="flex justify-center">
@@ -60,7 +60,7 @@
             strong
             :loading="loadingRef"
             class="w-full mb-8 mt-4"
-            @click="handleLogin"
+            @click="handleLogin(formValue)"
           >
             <template #icon>
               <n-icon><LoginIcon /></n-icon>
@@ -164,7 +164,6 @@ import {
 import { login, register } from "../api/users";
 // Pinia 状态管理
 import { useStore } from "../store";
-import router from "../router";
 const store = useStore();
 
 const formRef = ref<FormInst | null>(null);
@@ -184,8 +183,8 @@ const regFormValue = ref({
   repassword: "",
 });
 
-function handleLogin() {
-  let user_info = JSON.stringify(formValue.value);
+function handleLogin(data) {
+  let user_info = JSON.stringify(data);
   loadingRef.value = true;
   login(user_info)
     .then((res) => {
@@ -222,6 +221,7 @@ function handleRegister() {
       } else {
         try {
           message.success(res.data.msg);
+          handleLogin(regFormValue.value)
           loadingRef.value = false;
           store.showLogin = false;
         } catch (error) {

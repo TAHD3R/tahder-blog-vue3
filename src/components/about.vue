@@ -7,11 +7,12 @@
     >
       <n-grid-item span="4">
         <n-space horizontal>
-          <img
-            src="/src/assets/robot.png"
+          <n-image
+            src="/assets/robot.png"
             alt=""
             class="w-20 h-20 rounded-md mb-4"
-          >
+            preview-disabled
+          />
 
           <n-space vertical>
             <n-space
@@ -54,18 +55,32 @@
     </n-grid>
 
     <div class="flex items-center justify-between mt-4">
-      <n-button
-        text
-        style="font-size: 24px"
+      <n-popover
+        trigger="hover"
+        style="padding: 0"
+        raw
+        :show-arrow="false"
       >
-        <n-icon>
-          <WeChat />
-        </n-icon>
-      </n-button>
+        <template #trigger>
+          <n-button
+            text
+            style="font-size: 24px"
+          >
+            <n-icon>
+              <WeChat />
+            </n-icon>
+          </n-button>
+        </template>
+        <n-image
+          width="160"
+          src="/assets/qrcode.png"
+        />
+      </n-popover>
 
       <n-button
         text
         style="font-size: 24px"
+        @click="handleClick"
       >
         <n-icon>
           <LinkIcon />
@@ -76,29 +91,23 @@
         style="font-size: 24px"
       >
         <n-icon>
-          <cash-icon />
+          <CashIcon />
         </n-icon>
       </n-button>
     </div>
   </n-card>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
 import {
-  BalloonSharp as CashIcon,
+  Cash as CashIcon,
   LogoWechat as WeChat,
   LogoGithub as LinkIcon,
-  ChatbubbleEllipsesOutline as CommentIcon,
 } from "@vicons/ionicons5";
 
-export default defineComponent({
-  components: {
-    CashIcon,
-    WeChat,
-    LinkIcon,
-  },
-});
+function handleClick() {
+  window.location.href = "https://github.com/TAHD3R";
+}
 </script>
 
 <style scoped>

@@ -62,7 +62,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, reactive, nextTick } from "vue";
+import { ref, onMounted, nextTick } from "vue";
 import { useMessage } from "naive-ui";
 import { ChatboxOutline as ArchiveIcon } from "@vicons/ionicons5";
 import { publish } from "../api/posts";
@@ -80,10 +80,9 @@ const store = useStore();
 const message = useMessage();
 const inputValue = ref(null);
 const descValue = ref(null);
-const tags = ref([]);
 const categoryValue = ref(null);
 const categoryLoaded = ref(false);
-const options: any = [];
+const options = [];
 
 onMounted(() => {
   vditor.value = new Vditor("vditor", {
@@ -152,7 +151,7 @@ onMounted(() => {
 });
 
 function publishArticle() {
-  let getLocalData: any = localStorage.getItem("users");
+  let getLocalData = localStorage.getItem("users");
   let user_id: string = JSON.parse(getLocalData).user_id;
 
   let data = {
@@ -180,8 +179,8 @@ function publishArticle() {
   });
 }
 
-let vueEditor: Vditor | null = null;
-function handleAfter(editor: any) {
-  vueEditor = editor;
-}
+// let vueEditor: Vditor | null = null;
+// function handleAfter(editor: any) {
+//   vueEditor = editor;
+// }
 </script>

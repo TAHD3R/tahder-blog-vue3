@@ -58,36 +58,6 @@
             </div>
           </n-space>
 
-          <n-space vertical>
-            <n-space
-              horizontal
-              justify="space-between"
-            >
-              <div class="font-bold text-xl">
-                关于作者
-              </div>
-              <n-button strong>
-                关注
-              </n-button>
-            </n-space>
-            <n-space horizontal>
-              <img
-                :src="store.article['avatar']"
-                class="w-14 h-14 rounded-md"
-              >
-              <n-space vertical>
-                <div class="text-lg font-bold">
-                  {{ store.article["author"] }}
-                </div>
-                <n-ellipsis
-                  :line-clamp="2"
-                  class="text-sm"
-                >
-                  {{ store.article["description"] }}
-                </n-ellipsis>
-              </n-space>
-            </n-space>
-          </n-space>
 
           <n-divider> 评论区 </n-divider>
 
@@ -149,12 +119,12 @@
 <script setup lang="ts">
 import { get_article, get_comments, make_comment } from "../api/posts";
 import { ref, onMounted, reactive, nextTick } from "vue";
-import { RouterLink, useRouter } from "vue-router";
+import {  useRouter } from "vue-router";
 import comment from "../components/comments.vue";
 import { get_articles } from "~/api/posts";
 import { get_userlist } from "~/api/users";
 import { useMessage, MentionOption, MentionInst } from "naive-ui";
-import { List, toLength } from "lodash";
+import {  toLength } from "lodash";
 import Vditor from "vditor";
 // Pinia 状态管理
 import { useStore } from "../store";
@@ -181,7 +151,7 @@ function reply(data: number) {
   myMentionRef.value?.focus();
 }
 
-function pullUserlist(pattern: string, prefix: string) {
+function pullUserlist(pattern: string) {
   get_userlist().then((res) => {
     UserlistRef.value = res.data.data.map((v) => ({
       label: pattern + v,

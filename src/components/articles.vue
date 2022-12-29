@@ -88,7 +88,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, watch, nextTick } from "vue";
+import { watch } from "vue";
 import { toLength } from "lodash";
 import { get_articles } from "../api/posts";
 import {
@@ -99,12 +99,12 @@ import {
 import { useStore } from "../store";
 import pagination from "../components/pagination.vue";
 
-const props = defineProps(["page", "category"]);
+const props = defineProps(["page"]);
 const store = useStore();
 
 watch(
   () => props.page,
-  (newVal, oldVal) => {
+  (newVal) => {
     let data = {
       page: newVal,
     };

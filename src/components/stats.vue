@@ -1,5 +1,8 @@
 <template>
-  <n-card title="统计数据" class="mb-4">
+  <n-card
+    title="统计数据"
+    class="mb-4"
+  >
     <n-row>
       <n-col :span="12">
         <n-statistic label="文章数量">
@@ -17,7 +20,11 @@
       </n-col>
       <n-col :span="12">
         <n-statistic label="访问量">
-          <n-number-animation show-separator :from="0" :to="store.stats.views" />
+          <n-number-animation
+            show-separator
+            :from="0"
+            :to="store.stats.views"
+          />
         </n-statistic>
       </n-col>
       <n-col :span="12">
@@ -31,7 +38,11 @@
       </n-col>
       <n-col :span="12">
         <n-statistic label="新用户">
-          <n-avatar-group :options="options" :size="32" :max="4" />
+          <n-avatar-group
+            :options="options"
+            :size="32"
+            :max="4"
+          />
         </n-statistic>
       </n-col>
     </n-row>

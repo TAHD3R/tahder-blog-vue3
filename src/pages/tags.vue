@@ -22,9 +22,9 @@
         </div>
         <div>{{ item["description"] }}</div>
 
-        <n-list 
-          show-divider 
-          hoverable 
+        <n-list
+          show-divider
+          hoverable
           class="my-4"
         >
           <n-empty

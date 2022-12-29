@@ -77,11 +77,9 @@
 </template>
 
 <script setup lang="ts">
-import { defineComponent, ref } from "vue";
 import { ChatboxEllipses as Reply } from "@vicons/ionicons5";
 // Pinia 状态管理
 import { useStore } from "../store";
-import router from "../router";
 const store = useStore();
 const emit = defineEmits(["callback"]);
 

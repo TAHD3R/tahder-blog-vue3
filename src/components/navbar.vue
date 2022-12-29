@@ -1,14 +1,23 @@
 <template>
   <nav class="navbar px-4 md:px-8">
-    <n-grid cols="4 m:8 l:12" x-gap="8" item-responsive responsive="screen">
+    <n-grid
+      cols="4 m:8 l:12"
+      x-gap="8"
+      item-responsive
+      responsive="screen"
+    >
       <n-grid-item span="0 m:1">
-        <div class="nav-common">
-          <img
-            src="/src/assets/logo.svg"
-            class="hidden sm:inline w-8 h-8 mr-2"
-          />
-          <div class="hidden md:inline font-bold text-lg">塔格德</div>
-        </div>
+        <router-link :to="{ name: 'index' }">
+          <div class="nav-common">
+            <img
+              src="/assets/logo.svg"
+              class="hidden sm:inline w-8 h-8 mr-2"
+            >
+            <div class="hidden md:inline font-bold text-lg">
+              塔格德
+            </div>
+          </div>
+        </router-link>
       </n-grid-item>
       <n-grid-item span="0 m:0 l:3" />
       <n-grid-item span="3 m:4">
@@ -20,11 +29,19 @@
                   name: 'index',
                 }"
               >
-                <n-button text class="font-semibold">
+                <n-button
+                  text
+                  class="font-semibold"
+                >
                   <template #icon>
-                    <n-icon :component="HomeIcon" size="24" />
+                    <n-icon
+                      :component="HomeIcon"
+                      size="24"
+                    />
                   </template>
-                  <div class="hidden md:inline font-semibold ml-2">首页</div>
+                  <div class="hidden md:inline font-semibold ml-2">
+                    首页
+                  </div>
                 </n-button>
               </router-link>
             </n-grid-item>
@@ -34,9 +51,15 @@
                   name: 'tags',
                 }"
               >
-                <n-button text class="font-semibold">
+                <n-button
+                  text
+                  class="font-semibold"
+                >
                   <template #icon>
-                    <n-icon :component="BookIcon" size="24" />
+                    <n-icon
+                      :component="BookIcon"
+                      size="24"
+                    />
                   </template>
                   <div class="hidden md:inline font-semibold ml-2">
                     文章仓库
@@ -50,11 +73,19 @@
                   name: 'lab',
                 }"
               >
-                <n-button text class="font-semibold">
+                <n-button
+                  text
+                  class="font-semibold"
+                >
                   <template #icon>
-                    <n-icon :component="LabIcon" size="24" />
+                    <n-icon
+                      :component="LabIcon"
+                      size="24"
+                    />
                   </template>
-                  <div class="hidden md:inline font-semibold ml-2">实验室</div>
+                  <div class="hidden md:inline font-semibold ml-2">
+                    实验室
+                  </div>
                 </n-button>
               </router-link>
             </n-grid-item>
@@ -64,11 +95,19 @@
                   name: 'about',
                 }"
               >
-                <n-button text class="font-semibold">
+                <n-button
+                  text
+                  class="font-semibold"
+                >
                   <template #icon>
-                    <n-icon :component="UserIcon" size="24" />
+                    <n-icon
+                      :component="UserIcon"
+                      size="24"
+                    />
                   </template>
-                  <div class="hidden md:inline font-semibold ml-2">关于我</div>
+                  <div class="hidden md:inline font-semibold ml-2">
+                    关于我
+                  </div>
                 </n-button>
               </router-link>
             </n-grid-item>
@@ -80,7 +119,10 @@
         <searchbar class="flex justify-center items-center h-16 w-full" />
       </n-grid-item>
       <n-grid-item span="1">
-        <div v-if="store.isLogin" class="nav-common">
+        <div
+          v-if="store.isLogin"
+          class="nav-common"
+        >
           <div class="flex items-center justify-center">
             <n-image
               v-if="!store.messages"
@@ -90,7 +132,11 @@
               preview-disabled
             />
             <div v-else>
-              <n-badge :value="1" dot class="w-8 h-8">
+              <n-badge
+                :value="1"
+                dot
+                class="w-8 h-8"
+              >
                 <n-image
                   :src="store.userinfo.avatar"
                   alt=""
@@ -105,19 +151,33 @@
               placement="bottom-end"
               @select="handleSelect"
             >
-              <n-button text class="mx-2">
+              <n-button
+                text
+                class="mx-2"
+              >
                 {{ store.userinfo.nickname }}
                 <n-icon :component="ArrowIcon" />
               </n-button>
             </n-dropdown>
           </div>
         </div>
-        <div v-else class="nav-common">
-          <n-button round @click="store.showLogin = true"> 登录/注册 </n-button>
+        <div
+          v-else
+          class="nav-common"
+        >
+          <n-button
+            round
+            @click="store.showLogin = true"
+          >
+            登录/注册
+          </n-button>
         </div>
       </n-grid-item>
     </n-grid>
-    <n-modal v-model:show="store.showLogin" transform-origin="center">
+    <n-modal
+      v-model:show="store.showLogin"
+      transform-origin="center"
+    >
       <n-card class="login-modal">
         <login />
       </n-card>
@@ -126,7 +186,7 @@
 </template>
 
 <script setup lang="ts">
-import { h, ref, Component } from "vue";
+import { h, Component } from "vue";
 import { NIcon, useMessage, NAvatar, NText } from "naive-ui";
 import { RouterLink } from "vue-router";
 import {
@@ -137,7 +197,6 @@ import {
   ChevronForward as ArrowIcon,
   PlanetOutline as LabIcon,
   AtCircleOutline as MessageIcon,
-  CheckmarkSharp as CheckIcon,
 } from "@vicons/ionicons5";
 
 // 登录组件
@@ -225,11 +284,7 @@ function renderHeader() {
 }
 
 function renderMessages() {
-  return h(messages, {
-    title: "测试",
-    content: "测试",
-    class: "flex w-40 mx-4 my-2",
-  });
+  return h("div", { class: "flex flex-col w-40 mx-4 my-2" }, [h(messages)]);
 }
 
 function handleSelect(key: string | number) {

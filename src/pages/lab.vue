@@ -15,6 +15,8 @@
       <n-button>诗歌&文学作品</n-button>
       <n-button>影视鉴赏</n-button>
     </n-space>
-    <template #action> 实验室仍在建造中！ </template>
+    <template #action>
+      实验室仍在建造中！
+    </template>
   </n-card>
 </template>

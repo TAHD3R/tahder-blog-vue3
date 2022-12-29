@@ -15,9 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
 // Pinia 状态管理
 import { useStore } from "../store";
-import pagination from "~/components/pagination.vue";
 const store = useStore();
 </script>

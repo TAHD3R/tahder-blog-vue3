@@ -9,6 +9,7 @@
           strong
           secondary
           type="primary"
+          @click="handleClick"
         >
           查看更多
         </n-button>
@@ -75,7 +76,13 @@
 </template>
 
 <script setup lang="ts">
+import { useRouter } from "vue-router";
 // Pinia 状态管理
 import { useStore } from "../store";
 const store = useStore();
+const router = useRouter();
+
+function handleClick() {
+  router.push({ name: "tags" });
+}
 </script>

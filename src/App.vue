@@ -23,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import {  onMounted } from "vue";
 import { darkTheme, zhCN, dateZhCN } from "naive-ui";
 
 import navbar from "./components/navbar.vue";
@@ -57,9 +57,6 @@ onMounted(() => {
         });
       });
     })
-    .catch((err) => {
-      console.log("数据拉取失败");
-    });
 });
 </script>
 

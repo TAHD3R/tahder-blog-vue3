@@ -1,5 +1,8 @@
 <template>
-  <n-spin :show="loading" size="small">
+  <n-spin
+    :show="loading"
+    size="small"
+  >
     <n-input
       v-model:value="searchVal"
       size="large"
@@ -29,7 +32,6 @@ const router = useRouter();
 const message = useMessage();
 const searchVal = ref<string | null>(null);
 const loading = ref(false);
-const showPopover = ref(false);
 
 function handleSearch() {
   loading.value = true;

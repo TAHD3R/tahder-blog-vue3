@@ -11,7 +11,7 @@ const configProviderPropsRef = computed<ConfigProviderProps>(() => ({
 const { message } = createDiscreteApi(["message"], {
   configProviderProps: configProviderPropsRef,
 });
-export const useStore: any = defineStore("main", {
+export const useStore = defineStore("main", {
   state: () => {
     return {
       showLogin: false,

@@ -17,6 +17,7 @@ module.exports = {
 
     rules: {
         // override/add rules settings here, such as:
-        "vue/multi-word-component-names": "off"
+        "vue/multi-word-component-names": "off",
+        "@typescript-eslint/no-explicit-any": ["off"]
     }
 };
