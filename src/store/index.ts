@@ -1,74 +1,126 @@
-import { createPinia, defineStore } from "pinia";
-import { computed } from "vue";
-import { darkTheme, createDiscreteApi, ConfigProviderProps } from "naive-ui";
-import { get_user, logout } from "../api/users";
+import { computed } from 'vue';
+import { createPinia, defineStore } from 'pinia';
+import { darkTheme, createDiscreteApi, ConfigProviderProps } from 'naive-ui';
+import { get_user, logout } from '../api/users';
 
 const pinia = createPinia();
-// 提示模块
+
+// NaiveUI独立API
 const configProviderPropsRef = computed<ConfigProviderProps>(() => ({
   theme: darkTheme,
 }));
-const { message } = createDiscreteApi(["message"], {
+const { message } = createDiscreteApi(['message'], {
   configProviderProps: configProviderPropsRef,
 });
-export const useStore = defineStore("main", {
+
+// 导出Store,可分离并导出为多个Store(Pinia特性)
+export const useStore = defineStore('main', {
   state: () => {
     return {
       showLogin: false,
       isLogin: false,
       hasHotArticles: false,
-      userinfo: localStorage.getItem("users")
-        ? JSON.parse(localStorage.getItem("users") || "{}")
-        : false,
-      articles: [],
-      messages: null,
-      my_articles: [],
-      articles_hot: [],
+      userInfo: localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users') || '{}') : false,
+      articlesInfo: [
+        {
+          author: '',
+          avatar: '',
+          category: '',
+          comments: 0,
+          content: '',
+          created_time: 0,
+          description: '',
+          id: 0,
+          img: '',
+          summary: '',
+          title: '',
+          user_id: 0,
+          view: 0,
+        },
+      ],
+      insiteMessages: null,
+      myArticles: [
+        {
+          author: '',
+          avatar: '',
+          category: '',
+          comments: 0,
+          content: '',
+          created_time: 0,
+          description: '',
+          id: 0,
+          summary: '',
+          title: '',
+          user_id: 0,
+          view: 0,
+        },
+      ],
+      hotArticles: [
+        {
+          article_title: '',
+          category: '',
+          id: 0,
+          summary: '',
+        },
+      ],
       comments: [],
-      article: [],
+      articleDetail: {
+        author: '',
+        avatar: '',
+        category: '',
+        comments: 0,
+        content: '',
+        created_time: 0,
+        description: '',
+        id: 0,
+        img: '',
+        summary: '',
+        title: '',
+        user_id: 0,
+        view: 0,
+      },
       archives: [],
       topics: [],
       banner: [],
-      ads: [],
-      stats:[],
+      insiteStats: [],
       searchResults: [],
-      page: 1,
-      pages: 1,
-      messageTotal:0,
+      currentPage: 1,
+      totalPages: 1,
+      messageTotal: 0,
       hasNextPage: false,
-      editorTheme: "dark",
+      editorTheme: 'dark',
       isSkeleton: true,
-      token: localStorage.getItem("token") || undefined,
+      token: localStorage.getItem('token') || undefined,
     };
   },
   getters: {
-    loginCheck: (state) => state.userinfo,
+    loginCheck: (state) => state.userInfo,
   },
   actions: {
     getUsers(token: string) {
       this.token = token;
       get_user(token).then((res) => {
         const users = res.data.data;
-        this.updateUserinfo(users);
+        this.updateUserInfo(users);
       });
     },
     userLogout() {
       this.delAuth();
       this.setNavbar(false);
-      logout(localStorage.getItem("token")).then((res) => {
+      logout(localStorage.getItem('token')).then((res) => {
         message.info(res.data.msg);
       });
     },
     setNavbar(status: boolean) {
       this.isLogin = status;
     },
-    updateUserinfo(data: JSON) {
-      this.userinfo = data;
-      localStorage.setItem("users", JSON.stringify(data));
+    updateUserInfo(data: JSON) {
+      this.userInfo = data;
+      localStorage.setItem('users', JSON.stringify(data));
     },
     delAuth() {
       this.token = undefined;
-      localStorage.removeItem("users");
+      localStorage.removeItem('users');
     },
   },
 });

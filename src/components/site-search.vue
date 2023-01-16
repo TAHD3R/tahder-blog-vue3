@@ -1,16 +1,6 @@
 <template>
-  <n-spin
-    :show="loading"
-    size="small"
-  >
-    <n-input
-      v-model:value="searchVal"
-      size="large"
-      passively-activated
-      round
-      placeholder="搜索文章"
-      @change="handleSearch"
-    >
+  <n-spin :show="loading" size="small">
+    <n-input v-model:value="searchVal" size="large" passively-activated round placeholder="搜索文章" @change="handleSearch">
       <template #prefix>
         <n-icon :component="SearchIcon" />
       </template>
@@ -18,14 +8,14 @@
   </n-spin>
 </template>
 <script setup lang="ts">
-import { ref, nextTick } from "vue";
-import { useMessage } from "naive-ui";
+import { ref, nextTick } from 'vue';
+import { useMessage } from 'naive-ui';
 // Pinia 状态管理
-import { useStore } from "../store";
-import { useRouter } from "vue-router";
-import { Search as SearchIcon } from "@vicons/ionicons5";
+import { useStore } from '../store';
+import { useRouter } from 'vue-router';
+import { Search as SearchIcon } from '@vicons/ionicons5';
 
-import { search } from "../api/posts";
+import { search } from '../api/posts';
 
 const store = useStore();
 const router = useRouter();
@@ -44,7 +34,7 @@ function handleSearch() {
     if (res.data.code == 200) {
       store.searchResults = res.data.data;
       console.log(res);
-      router.push({ name: "search", query: { keyword: searchVal.value } });
+      router.push({ name: 'search', query: { keyword: searchVal.value } });
     } else {
       message.error(res.data.msg);
     }

@@ -1,38 +1,15 @@
 <template>
   <n-space vertical>
-    <img
-      src="/assets/logo.svg"
-      class="logo mx-auto"
-    >
+    <img src="/images/logo.svg" class="logo mx-auto" />
     <div class="flex justify-center">
-      <div class="text-2xl font-bold mb-4">
-        专注技术，分享生活。
-      </div>
+      <div class="text-2xl font-bold mb-4">专注技术，分享生活。</div>
     </div>
-    <n-tabs
-      default-value="login"
-      justify-content="space-evenly"
-      type="segment"
-      animated
-    >
-      <n-tab-pane
-        name="login"
-        tab="登录"
-      >
+    <n-tabs default-value="login" justify-content="space-evenly" type="segment" animated>
+      <n-tab-pane name="login" tab="登录">
         <n-space vertical>
-          <n-form
-            ref="formRef"
-            block
-            :model="formValue"
-          >
+          <n-form ref="formRef" block :model="formValue">
             <n-space vertical>
-              <n-input
-                v-model:value="formValue.username"
-                type="text"
-                placeholder="用户名"
-                :maxlength="32"
-                path="username"
-              >
+              <n-input v-model:value="formValue.username" type="text" placeholder="用户名" :maxlength="32" path="username">
                 <template #prefix>
                   <n-icon :component="UserIcon" />
                 </template>
@@ -52,16 +29,9 @@
             </n-space>
           </n-form>
           <n-space justify="end">
-            <n-button text>
-              忘记密码？
-            </n-button>
+            <n-button text> 忘记密码？ </n-button>
           </n-space>
-          <n-button
-            strong
-            :loading="loadingRef"
-            class="w-full mb-8 mt-4"
-            @click="handleLogin(formValue)"
-          >
+          <n-button strong :loading="loadingRef" class="w-full mb-8 mt-4" @click="handleLogin(formValue)">
             <template #icon>
               <n-icon><LoginIcon /></n-icon>
             </template>
@@ -69,34 +39,15 @@
           </n-button>
         </n-space>
       </n-tab-pane>
-      <n-tab-pane
-        name="register"
-        tab="注册"
-      >
-        <n-form
-          ref="regFormRef"
-          block
-          :model="regFormValue"
-        >
+      <n-tab-pane name="register" tab="注册">
+        <n-form ref="regFormRef" block :model="regFormValue">
           <n-space vertical>
-            <n-input
-              v-model:value="regFormValue.username"
-              type="text"
-              placeholder="用户名(由字母或数字组成)"
-              :maxlength="32"
-              path="username"
-            >
+            <n-input v-model:value="regFormValue.username" type="text" placeholder="用户名(由字母或数字组成)" :maxlength="32" path="username">
               <template #prefix>
                 <n-icon :component="UserIcon" />
               </template>
             </n-input>
-            <n-input
-              v-model:value="regFormValue.nickname"
-              type="text"
-              placeholder="用户昵称"
-              :maxlength="32"
-              path="nickname"
-            >
+            <n-input v-model:value="regFormValue.nickname" type="text" placeholder="用户昵称" :maxlength="32" path="nickname">
               <template #prefix>
                 <n-icon :component="NicknameIcon" />
               </template>
@@ -127,12 +78,7 @@
             </n-input>
           </n-space>
         </n-form>
-        <n-button
-          strong
-          :loading="loadingRef"
-          class="w-full mt-4"
-          @click="handleRegister"
-        >
+        <n-button strong :loading="loadingRef" class="w-full mt-4" @click="handleRegister">
           <template #icon>
             <n-icon><LoginIcon /></n-icon>
           </template>
@@ -141,9 +87,7 @@
         <n-divider>提示</n-divider>
         <ul>
           <!-- <li>本站为邀请制,暂不开放注册.</li> -->
-          <li>
-            用户名与密码不能包含中文;密码长度大于8位,并且必须包含字母和数字.
-          </li>
+          <li>用户名与密码不能包含中文;密码长度大于8位,并且必须包含字母和数字.</li>
         </ul>
       </n-tab-pane>
     </n-tabs>
@@ -151,19 +95,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref } from 'vue';
 
-import { FormInst, useMessage } from "naive-ui";
+import { FormInst, useMessage } from 'naive-ui';
 
-import {
-  ArrowRedo as LoginIcon,
-  PersonCircleOutline as UserIcon,
-  Key as PasswordIcon,
-  FingerPrint as NicknameIcon,
-} from "@vicons/ionicons5";
-import { login, register } from "../api/users";
+import { ArrowRedo as LoginIcon, PersonCircleOutline as UserIcon, Key as PasswordIcon, FingerPrint as NicknameIcon } from '@vicons/ionicons5';
+import { login, register } from '../api/users';
 // Pinia 状态管理
-import { useStore } from "../store";
+import { useStore } from '../store';
 const store = useStore();
 
 const formRef = ref<FormInst | null>(null);
@@ -172,21 +111,20 @@ const loadingRef = ref(false);
 
 const message = useMessage();
 const formValue = ref({
-  username: "",
-  password: "",
+  username: '',
+  password: '',
 });
 
 const regFormValue = ref({
-  username: "",
-  nickname: "",
-  password: "",
-  repassword: "",
+  username: '',
+  nickname: '',
+  password: '',
+  repassword: '',
 });
 
 function handleLogin(data) {
-  let user_info = JSON.stringify(data);
   loadingRef.value = true;
-  login(user_info)
+  login(data)
     .then((res) => {
       if (res.data.code != 200) {
         message.error(res.data.msg);
@@ -194,14 +132,14 @@ function handleLogin(data) {
       } else {
         let token = res.data.data.access_token;
         try {
-          localStorage.setItem("token", token);
+          localStorage.setItem('token', token);
           store.setNavbar(true);
           store.getUsers(token);
           store.showLogin = false;
           message.success(res.data.msg);
           loadingRef.value = false;
         } catch (error) {
-          message.error("登陆失败了,再试一次?");
+          message.error('登陆失败了,再试一次?');
         }
       }
     })
@@ -211,9 +149,8 @@ function handleLogin(data) {
 }
 
 function handleRegister() {
-  let user_info = JSON.stringify(regFormValue.value);
   loadingRef.value = true;
-  register(user_info)
+  register(regFormValue.value)
     .then((res) => {
       if (res.data.code != 200) {
         message.error(res.data.msg);
@@ -221,11 +158,11 @@ function handleRegister() {
       } else {
         try {
           message.success(res.data.msg);
-          handleLogin(regFormValue.value)
+          handleLogin(regFormValue.value);
           loadingRef.value = false;
           store.showLogin = false;
         } catch (error) {
-          message.error("注册失败了,再试一次?");
+          message.error('注册失败了,再试一次?');
         }
       }
     })

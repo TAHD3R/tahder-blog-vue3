@@ -1,7 +1,15 @@
 {
   "name": "tahder-blog",
+  "description": "A open-source blog project, using vue3 as framework, with satisfying style and modern design.",
+  "author": {
+    "name": "Jasar Ayiken",
+    "email": "jaasaar@126.com"
+  },
+  "repository": {
+    "directory": "git@github.com:TAHD3R/tahder-blog-vue3.git"
+  },
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -29,13 +37,15 @@
     "@typescript-eslint/parser": "^5.47.1",
     "@vicons/ionicons5": "^0.12.0",
     "@vitejs/plugin-vue": "^3.2.0",
+    "@vue/eslint-config-prettier": "^6.0.0",
     "autoprefixer": "^10.4.13",
     "eslint": "^8.30.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-prettier": "^3.4.1",
     "eslint-plugin-vue": "^9.8.0",
-    "eslint-plugin-prettier": "^3.3.1",
-    "@vue/eslint-config-prettier": "^6.0.0",
     "naive-ui": "^2.34.2",
     "postcss": "^8.4.19",
+    "prettier": "^2.8.3",
     "tailwindcss": "^3.2.4",
     "typescript": "^4.6.4",
     "unplugin-auto-import": "^0.11.5",

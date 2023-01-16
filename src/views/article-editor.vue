@@ -2,17 +2,10 @@
   <n-card embedded>
     <div class="flex flex-row justify-between mb-4">
       <div class="flex flex-col">
-        <div class="text-3xl mb-2 font-bold">
-          在这里发挥想象吧！
-        </div>
+        <div class="text-3xl mb-2 font-bold">在这里发挥想象吧！</div>
       </div>
     </div>
-    <n-grid
-      x-gap="12"
-      :cols="4"
-      item-responsive
-      class="mb-3"
-    >
+    <n-grid x-gap="12" :cols="4" item-responsive class="mb-3">
       <n-gi span="2">
         <n-select
           v-if="categoryLoaded"
@@ -26,31 +19,16 @@
       </n-gi>
 
       <n-gi span="2">
-        <n-input
-          v-model:value="inputValue"
-          type="text"
-          placeholder="输入文章题目"
-          show-count
-          clearable
-        />
+        <n-input v-model:value="inputValue" type="text" placeholder="输入文章题目" show-count clearable />
       </n-gi>
       <n-gi span="4">
-        <n-input
-          v-model:value="descValue"
-          type="text"
-          placeholder="输入文章简介"
-          show-count
-          clearable
-        />
+        <n-input v-model:value="descValue" type="text" placeholder="输入文章简介" show-count clearable />
       </n-gi>
     </n-grid>
     <div id="vditor" />
     <template #action>
       <n-space justify="end">
-        <n-button
-          size="large"
-          @click="publishArticle"
-        >
+        <n-button size="large" @click="publishArticle">
           <template #icon>
             <n-icon><ArchiveIcon /></n-icon>
           </template>
@@ -62,17 +40,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, nextTick } from "vue";
-import { useMessage } from "naive-ui";
-import { ChatboxOutline as ArchiveIcon } from "@vicons/ionicons5";
-import { publish } from "../api/posts";
-import { get_categories } from "../api/tags";
-import { get_articles } from "../api/posts";
-import Vditor from "vditor";
+import { ref, onMounted, nextTick } from 'vue';
+import { useMessage } from 'naive-ui';
+import { ChatboxOutline as ArchiveIcon } from '@vicons/ionicons5';
+import { publish } from '../api/posts';
+import { get_categories } from '../api/category';
+import { get_articles } from '../api/posts';
+import Vditor from 'vditor';
 
-import { useRouter } from "vue-router";
+import { useRouter } from 'vue-router';
 // Pinia 状态管理
-import { useStore } from "../store";
+import { useStore } from '../store';
 
 const vditor = ref<Vditor | null>(null);
 const router = useRouter();
@@ -85,35 +63,35 @@ const categoryLoaded = ref(false);
 const options = [];
 
 onMounted(() => {
-  vditor.value = new Vditor("vditor", {
-    theme: "classic",
-    icon: "material",
-    placeholder: "< 开始发挥想象🥇",
+  vditor.value = new Vditor('vditor', {
+    theme: 'classic',
+    icon: 'material',
+    placeholder: '< 开始发挥想象🥇',
     toolbar: [
-      "emoji",
-      "headings",
-      "bold",
-      "italic",
-      "strike",
-      "link",
-      "|",
-      "list",
-      "ordered-list",
-      "check",
-      "outdent",
-      "indent",
-      "|",
-      "quote",
-      "line",
-      "code",
-      "inline-code",
-      "insert-before",
-      "insert-after",
-      "|",
-      "table",
-      "|",
-      "undo",
-      "redo",
+      'emoji',
+      'headings',
+      'bold',
+      'italic',
+      'strike',
+      'link',
+      '|',
+      'list',
+      'ordered-list',
+      'check',
+      'outdent',
+      'indent',
+      '|',
+      'quote',
+      'line',
+      'code',
+      'inline-code',
+      'insert-before',
+      'insert-after',
+      '|',
+      'table',
+      '|',
+      'undo',
+      'redo',
     ],
     cache: {
       enable: false,
@@ -123,12 +101,12 @@ onMounted(() => {
     },
     counter: {
       enable: true,
-      type: "text",
+      type: 'text',
     },
     //默认关闭大纲
     outline: {
       enable: false,
-      position: "right",
+      position: 'right',
     },
     after: () => {
       // vditor.value is a instance of Vditor now and thus can be safely used here
@@ -138,7 +116,7 @@ onMounted(() => {
 
   get_categories().then((res) => {
     for (var key in res.data.data) {
-      if (!res.data.data.hasOwnProperty(key)) {
+      if (!res.data.data.hasOwnProperty.call(key)) {
         continue;
       }
       var item = {};
@@ -151,7 +129,7 @@ onMounted(() => {
 });
 
 function publishArticle() {
-  let getLocalData = localStorage.getItem("users");
+  let getLocalData = localStorage.getItem('users');
   let user_id: string = JSON.parse(getLocalData).user_id;
 
   let data = {
@@ -171,9 +149,9 @@ function publishArticle() {
       nextTick(() => {
         message.success(res.data.msg);
         get_articles().then((res) => {
-          store.articles = res.data.data;
+          store.articlesInfo = res.data.data;
         });
-        router.push({ name: "post", query: { id: res.data.data.id } });
+        router.push({ name: 'post', query: { id: res.data.data.id } });
       });
     }
   });
