@@ -1,4 +1,4 @@
-![2LgzN.png](https://i.328888.xyz/2023/01/17/2LgzN.png)
+![2LgzN.png](/screenshots/43504076-bed6-4fc8-8c8a-94af0ecd6ccb.png)
 # 简介
 作为一个菜鸟程序员，记录自己的学习历程是一个很有仪式感的事情，同时，写博客也是一个将所学内容内化并输出的过程。
 一般来说，互联网上有许多成熟的博客框架，如VuePress、Hexo等，甚至有Docker镜像，一键部署就可以使用了，还有些甚至不需要自己拥有服务器。  
@@ -6,12 +6,18 @@
 本项目开始于2022年11月25日，基本结束于2022年12月29日，边学边做边调试，这段时间里学到了不少，也踩了不少坑。
 所幸，项目完成了，结果并不错。
 > 感谢众多开源开发者愿意贡献他们的成果，能让这个项目开展的轻松一些，我也愿意分享我的成果，希望能帮到别人。
+
+我的博客地址：[塔格德 - 专注技术，分享生活](https://tahd3r.com/)
+
+Github库：[tahder-blog-vue3](https://github.com/TAHD3R/tahder-blog-vue3)
+
+---
 # 界面展示
 本项目使用TailwindCSS作为CSS框架，我适配了三个尺寸的响应式外观，PC端和移动端都能有很好的浏览体验。
-![2LrJX.png](https://i.328888.xyz/2023/01/17/2LrJX.png)
-![2LNBP.png](https://i.328888.xyz/2023/01/17/2LNBP.png)
-![2LRDt.png](https://i.328888.xyz/2023/01/17/2LRDt.png)
-![2LcrJ.png](https://i.328888.xyz/2023/01/17/2LcrJ.png)
+![2LrJX.png](/screenshots/011706520768_01.png)
+![2LNBP.png](/screenshots/011706524065_04.png)
+![2LRDt.png](/screenshots/011706530357_06.png)
+![2LcrJ.png](/screenshots/011706531856_09.png)
 # 功能介绍
 | 技术栈方向 | 名称           | 备注                                |
 | ---------- | -------------- | ----------------------------------- |
@@ -20,8 +26,10 @@
 | 前端       | Naive UI界面库 | 很好看，组件很多                    |
 | 后端       | MySQL + Redis  | 数据库，分别存放整站数据和JWT Token |
 | 后端       | Flask          | 后端框架，所有API的基础 |
+
 本项目使用了Flask作为后端API服务，对我来说确实很趁手（只会Python，不会Java），但是感觉后端的代码我写的非常烂，还有很大的提升空间。
-![2Lm5c.png](https://i.328888.xyz/2023/01/17/2Lm5c.png)
+
+![2Lm5c.png](/screenshots/api.png)
 ## 用户类接口
 - 用户登录
 - 用户注册
